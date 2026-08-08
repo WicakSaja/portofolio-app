@@ -1,22 +1,22 @@
 Phase 1
 
-- Setup Next.js
-- Setup Prisma
-- Setup Database
-- Setup Authentication
+- [x] Setup Next.js
+- [x] Setup Prisma
+- [x] Setup Database
+- [x] Setup Authentication
 
 Phase 2
 
-- Dashboard Layout
+- [x] Dashboard Layout
 
 Phase 3
 
 CRUD Portfolio
 
-- Create
-- Read
-- Update
-- Delete
+- [x] Create
+- [x] Read
+- [x] Update
+- [x] Delete
 
 Phase 4
 
