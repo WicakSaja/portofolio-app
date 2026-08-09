@@ -20,19 +20,19 @@ CRUD Portfolio
 
 Phase 4
 
-CRUD Skills
+- [x] CRUD Skills
 
 Phase 5
 
-CRUD Experience
+- [x] CRUD Experience
 
 Phase 6
 
-Contact
+- [x] Contact
 
 Phase 7
 
-Site Settings
+- [x] Site Settings
 
 Phase 8
 
