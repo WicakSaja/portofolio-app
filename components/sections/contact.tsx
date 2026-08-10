@@ -33,7 +33,7 @@ export function Contact({ contact }: ContactProps) {
         <AnimateOnScroll>
           <div className="max-w-3xl mx-auto flex flex-col items-center">
             <span className="text-[var(--color-accent)] font-semibold tracking-wider uppercase text-sm mb-4 block">
-              03 — CONTACT
+              05 — CONTACT
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[var(--color-text-primary)]" style={{ fontFamily: 'var(--font-heading)' }}>
               Let&apos;s work together.
