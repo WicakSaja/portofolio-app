@@ -58,91 +58,105 @@ export default async function PortfolioAdminPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/10">
-                {projects.map((project) => (
-                  <tr key={project.id} className="hover:bg-white/5 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-4">
-                        <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-slate-900">
-                          {project.thumbnail ? (
-                            <Image
-                              src={project.thumbnail}
-                              alt={project.title}
-                              fill
-                              unoptimized
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="flex h-full w-full items-center justify-center text-xs text-slate-500">
-                              No image
+                {projects.map((project) => {
+                  const displayImages =
+                    project.images && project.images.length > 0
+                      ? project.images
+                      : project.thumbnail
+                        ? [project.thumbnail]
+                        : [];
+
+                  return (
+                    <tr key={project.id} className="hover:bg-white/5 transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-4">
+                          <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-slate-900">
+                            {displayImages[0] ? (
+                              <Image
+                                src={displayImages[0]}
+                                alt={project.title}
+                                fill
+                                unoptimized
+                                className="object-cover"
+                              />
+                            ) : (
+                              <div className="flex h-full w-full items-center justify-center text-xs text-slate-500">
+                                No image
+                              </div>
+                            )}
+                            {displayImages.length > 1 && (
+                              <span className="absolute bottom-1 right-1 rounded bg-black/75 px-1 py-0.2 text-[10px] font-medium text-white">
+                                +{displayImages.length - 1}
+                              </span>
+                            )}
+                          </div>
+                          <div>
+                            <div className="font-semibold text-white">{project.title}</div>
+                            <div className="mt-0.5 line-clamp-1 max-w-[250px] text-xs text-slate-400">
+                              {project.description}
                             </div>
-                          )}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-white">{project.title}</div>
-                          <div className="mt-0.5 line-clamp-1 max-w-[250px] text-xs text-slate-400">
-                            {project.description}
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-slate-300">
-                        {project.category}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      {project.featured ? (
-                        <span className="inline-flex rounded-full border border-green-500/20 bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-400">
-                          Featured
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-slate-300">
+                          {project.category}
                         </span>
-                      ) : (
-                        <span className="inline-flex rounded-full border border-white/10 bg-transparent px-2.5 py-0.5 text-xs text-slate-500">
-                          Standard
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        {project.github ? (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white"
-                          >
-                            <GitBranch className="h-3.5 w-3.5" />
-                            <span>Code</span>
-                          </a>
+                      </td>
+                      <td className="px-6 py-4">
+                        {project.featured ? (
+                          <span className="inline-flex rounded-full border border-green-500/20 bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-400">
+                            Featured
+                          </span>
                         ) : (
-                          <span className="text-xs text-slate-600">-</span>
+                          <span className="inline-flex rounded-full border border-white/10 bg-transparent px-2.5 py-0.5 text-xs text-slate-500">
+                            Standard
+                          </span>
                         )}
-                        {project.demo ? (
-                          <a
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white"
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          {project.github ? (
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white"
+                            >
+                              <GitBranch className="h-3.5 w-3.5" />
+                              <span>Code</span>
+                            </a>
+                          ) : (
+                            <span className="text-xs text-slate-600">-</span>
+                          )}
+                          {project.demo ? (
+                            <a
+                              href={project.demo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white"
+                            >
+                              <Globe className="h-3.5 w-3.5" />
+                              <span>Demo</span>
+                            </a>
+                          ) : null}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <Link
+                            href={`/admin/portfolio/${project.id}/edit`}
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
+                            title="Edit project"
                           >
-                            <Globe className="h-3.5 w-3.5" />
-                            <span>Demo</span>
-                          </a>
-                        ) : null}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <Link
-                          href={`/admin/portfolio/${project.id}/edit`}
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
-                          title="Edit project"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Link>
-                        <PortfolioDeleteButton id={project.id} />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                            <Edit className="h-4 w-4" />
+                          </Link>
+                          <PortfolioDeleteButton id={project.id} />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

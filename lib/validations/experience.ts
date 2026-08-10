@@ -31,7 +31,7 @@ export const experienceUploadSchema = z
     startDate: z.string().min(1, "Start date is required"),
     endDate: z.string().optional(),
     current: z.boolean().default(false),
-    images: z.array(z.instanceof(File)).max(5, "You can upload up to 5 images"),
+    images: z.array(z.instanceof(File)).max(10, "You can upload up to 10 images"),
   })
   .refine(
     (data) => {

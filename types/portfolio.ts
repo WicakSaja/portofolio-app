@@ -1,7 +1,7 @@
 export type PortfolioFormValues = {
   title: string;
   description: string;
-  thumbnail: FileList | null;
+  images: FileList | null;
   github?: string;
   demo?: string;
   category: string;

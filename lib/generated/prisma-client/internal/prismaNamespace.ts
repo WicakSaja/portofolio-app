@@ -835,6 +835,7 @@ export const PortfolioScalarFieldEnum = {
   title: 'title',
   description: 'description',
   thumbnail: 'thumbnail',
+  images: 'images',
   github: 'github',
   demo: 'demo',
   category: 'category',

@@ -62,8 +62,8 @@ export function ExperienceForm({ experience }: ExperienceFormProps) {
     const selectedFiles = values.images;
     const newFilesCount = selectedFiles ? selectedFiles.length : 0;
 
-    if (retainedImages.length + newFilesCount > 5) {
-      toast.error("Maximum 5 gallery images are allowed per experience.");
+    if (retainedImages.length + newFilesCount > 10) {
+      toast.error("Maximum 10 gallery images are allowed per experience.");
       return;
     }
 
@@ -211,7 +211,7 @@ export function ExperienceForm({ experience }: ExperienceFormProps) {
 
       <div>
         <label htmlFor="images" className="text-sm text-slate-200">
-          Gallery Images <span className="text-slate-400">(upload up to 5 images in total)</span>
+          Gallery Images <span className="text-slate-400">(upload up to 10 images in total)</span>
         </label>
         <input
           id="images"

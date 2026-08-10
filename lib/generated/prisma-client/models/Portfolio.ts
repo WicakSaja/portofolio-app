@@ -55,6 +55,7 @@ export type PortfolioCountAggregateOutputType = {
   title: number
   description: number
   thumbnail: number
+  images: number
   github: number
   demo: number
   category: number
@@ -96,6 +97,7 @@ export type PortfolioCountAggregateInputType = {
   title?: true
   description?: true
   thumbnail?: true
+  images?: true
   github?: true
   demo?: true
   category?: true
@@ -182,6 +184,7 @@ export type PortfolioGroupByOutputType = {
   title: string
   description: string
   thumbnail: string | null
+  images: string[]
   github: string | null
   demo: string | null
   category: string
@@ -216,6 +219,7 @@ export type PortfolioWhereInput = {
   title?: Prisma.StringFilter<"Portfolio"> | string
   description?: Prisma.StringFilter<"Portfolio"> | string
   thumbnail?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  images?: Prisma.StringNullableListFilter<"Portfolio">
   github?: Prisma.StringNullableFilter<"Portfolio"> | string | null
   demo?: Prisma.StringNullableFilter<"Portfolio"> | string | null
   category?: Prisma.StringFilter<"Portfolio"> | string
@@ -229,6 +233,7 @@ export type PortfolioOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   thumbnail?: Prisma.SortOrderInput | Prisma.SortOrder
+  images?: Prisma.SortOrder
   github?: Prisma.SortOrderInput | Prisma.SortOrder
   demo?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -245,6 +250,7 @@ export type PortfolioWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Portfolio"> | string
   description?: Prisma.StringFilter<"Portfolio"> | string
   thumbnail?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  images?: Prisma.StringNullableListFilter<"Portfolio">
   github?: Prisma.StringNullableFilter<"Portfolio"> | string | null
   demo?: Prisma.StringNullableFilter<"Portfolio"> | string | null
   category?: Prisma.StringFilter<"Portfolio"> | string
@@ -258,6 +264,7 @@ export type PortfolioOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   thumbnail?: Prisma.SortOrderInput | Prisma.SortOrder
+  images?: Prisma.SortOrder
   github?: Prisma.SortOrderInput | Prisma.SortOrder
   demo?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -277,6 +284,7 @@ export type PortfolioScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Portfolio"> | string
   description?: Prisma.StringWithAggregatesFilter<"Portfolio"> | string
   thumbnail?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+  images?: Prisma.StringNullableListFilter<"Portfolio">
   github?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
   demo?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
   category?: Prisma.StringWithAggregatesFilter<"Portfolio"> | string
@@ -290,6 +298,7 @@ export type PortfolioCreateInput = {
   title: string
   description: string
   thumbnail?: string | null
+  images?: Prisma.PortfolioCreateimagesInput | string[]
   github?: string | null
   demo?: string | null
   category: string
@@ -303,6 +312,7 @@ export type PortfolioUncheckedCreateInput = {
   title: string
   description: string
   thumbnail?: string | null
+  images?: Prisma.PortfolioCreateimagesInput | string[]
   github?: string | null
   demo?: string | null
   category: string
@@ -316,6 +326,7 @@ export type PortfolioUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.PortfolioUpdateimagesInput | string[]
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -329,6 +340,7 @@ export type PortfolioUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.PortfolioUpdateimagesInput | string[]
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -342,6 +354,7 @@ export type PortfolioCreateManyInput = {
   title: string
   description: string
   thumbnail?: string | null
+  images?: Prisma.PortfolioCreateimagesInput | string[]
   github?: string | null
   demo?: string | null
   category: string
@@ -355,6 +368,7 @@ export type PortfolioUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.PortfolioUpdateimagesInput | string[]
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -368,6 +382,7 @@ export type PortfolioUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.PortfolioUpdateimagesInput | string[]
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -376,11 +391,20 @@ export type PortfolioUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type PortfolioCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   thumbnail?: Prisma.SortOrder
+  images?: Prisma.SortOrder
   github?: Prisma.SortOrder
   demo?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -415,12 +439,21 @@ export type PortfolioMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type PortfolioCreateimagesInput = {
+  set: string[]
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type PortfolioUpdateimagesInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -438,6 +471,7 @@ export type PortfolioSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   title?: boolean
   description?: boolean
   thumbnail?: boolean
+  images?: boolean
   github?: boolean
   demo?: boolean
   category?: boolean
@@ -451,6 +485,7 @@ export type PortfolioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   title?: boolean
   description?: boolean
   thumbnail?: boolean
+  images?: boolean
   github?: boolean
   demo?: boolean
   category?: boolean
@@ -464,6 +499,7 @@ export type PortfolioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   title?: boolean
   description?: boolean
   thumbnail?: boolean
+  images?: boolean
   github?: boolean
   demo?: boolean
   category?: boolean
@@ -477,6 +513,7 @@ export type PortfolioSelectScalar = {
   title?: boolean
   description?: boolean
   thumbnail?: boolean
+  images?: boolean
   github?: boolean
   demo?: boolean
   category?: boolean
@@ -485,7 +522,7 @@ export type PortfolioSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PortfolioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "thumbnail" | "github" | "demo" | "category" | "featured" | "createdAt" | "updatedAt", ExtArgs["result"]["portfolio"]>
+export type PortfolioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "thumbnail" | "images" | "github" | "demo" | "category" | "featured" | "createdAt" | "updatedAt", ExtArgs["result"]["portfolio"]>
 
 export type $PortfolioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Portfolio"
@@ -495,6 +532,7 @@ export type $PortfolioPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     title: string
     description: string
     thumbnail: string | null
+    images: string[]
     github: string | null
     demo: string | null
     category: string
@@ -928,6 +966,7 @@ export interface PortfolioFieldRefs {
   readonly title: Prisma.FieldRef<"Portfolio", 'String'>
   readonly description: Prisma.FieldRef<"Portfolio", 'String'>
   readonly thumbnail: Prisma.FieldRef<"Portfolio", 'String'>
+  readonly images: Prisma.FieldRef<"Portfolio", 'String[]'>
   readonly github: Prisma.FieldRef<"Portfolio", 'String'>
   readonly demo: Prisma.FieldRef<"Portfolio", 'String'>
   readonly category: Prisma.FieldRef<"Portfolio", 'String'>

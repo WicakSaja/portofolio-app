@@ -1,21 +1,50 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Open_Sans, JetBrains_Mono, Geist } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio CMS",
-  description: "Personal portfolio CMS with admin dashboard and public website.",
+  title: "Portofolio - @WicakSaja",
+  description:
+    "Personal portfolio showcasing projects, skills, and professional experience.",
+  icons: {
+    icon: "/BW.png",
+    shortcut: "/BW.png",
+    apple: "/BW.png",
+  },
+  openGraph: {
+    title: "Portofolio - @WicakSaja",
+    description:
+      "Personal portfolio showcasing projects, skills, and professional experience.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portofolio - @WicakSaja",
+    description:
+      "Personal portfolio showcasing projects, skills, and professional experience.",
+  },
 };
 
 export default function RootLayout({
@@ -26,7 +55,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", inter.variable, openSans.variable, jetbrainsMono.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col">
         {children}

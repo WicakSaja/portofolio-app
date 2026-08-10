@@ -1,7 +1,8 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -16,13 +17,14 @@ const inputClassName =
 export function PortfolioCreateForm() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const form = useForm<PortfolioFormValues>({
     resolver: zodResolver(portfolioFormSchema),
     defaultValues: {
       title: "",
       description: "",
-        thumbnail: null,
+      images: null,
       github: "",
       demo: "",
       category: "",
@@ -31,6 +33,19 @@ export function PortfolioCreateForm() {
   });
 
   const onSubmit = (values: PortfolioFormValues) => {
+    const selectedFiles = values.images;
+    const fileCount = selectedFiles ? selectedFiles.length : 0;
+
+    if (fileCount === 0) {
+      toast.error("Please upload at least 1 image for the project.");
+      return;
+    }
+
+    if (fileCount > 10) {
+      toast.error("Maximum 10 project images are allowed.");
+      return;
+    }
+
     startTransition(async () => {
       const formData = new FormData();
 
@@ -41,10 +56,10 @@ export function PortfolioCreateForm() {
       formData.append("category", values.category);
       formData.append("featured", String(values.featured));
 
-      const thumbnailFile = values.thumbnail?.item(0);
-
-      if (thumbnailFile) {
-        formData.append("thumbnail", thumbnailFile);
+      if (selectedFiles) {
+        for (let i = 0; i < selectedFiles.length; i++) {
+          formData.append("images", selectedFiles[i]);
+        }
       }
 
       const result = await createPortfolio(formData);
@@ -56,9 +71,24 @@ export function PortfolioCreateForm() {
 
       toast.success(result.message);
       form.reset();
-      router.push("/admin");
+      router.push("/admin/portfolio");
       router.refresh();
     });
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    form.setValue("images", files);
+
+    if (files) {
+      const urls: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        urls.push(URL.createObjectURL(files[i]));
+      }
+      setPreviewUrls(urls);
+    } else {
+      setPreviewUrls([]);
+    }
   };
 
   return (
@@ -105,23 +135,41 @@ export function PortfolioCreateForm() {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="thumbnail" className="text-sm text-slate-200">
-            Thumbnail Image
-          </label>
-          <input
-            id="thumbnail"
-            type="file"
-            accept="image/*"
-            onChange={(event) => {
-              form.setValue("thumbnail", event.target.files);
-            }}
-            className={inputClassName}
-          />
-          <p className="mt-1 text-xs text-rose-300">{form.formState.errors.thumbnail?.message}</p>
-        </div>
+      <div>
+        <label htmlFor="images" className="text-sm text-slate-200">
+          Project Images <span className="text-slate-400">(upload 1 to 10 images)</span>
+        </label>
+        <input
+          id="images"
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleFileChange}
+          className={inputClassName}
+        />
+        <p className="mt-1 text-xs text-rose-300">{form.formState.errors.images?.message}</p>
 
+        {previewUrls.length > 0 && (
+          <div className="mt-4">
+            <p className="text-xs text-slate-400">Selected Image Previews ({previewUrls.length}):</p>
+            <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-5">
+              {previewUrls.map((url, i) => (
+                <div key={i} className="relative aspect-video overflow-hidden rounded-lg border border-white/20 bg-slate-900">
+                  <Image
+                    src={url}
+                    alt={`Preview ${i}`}
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="github" className="text-sm text-slate-200">
             GitHub URL <span className="text-slate-400">(optional)</span>
@@ -129,14 +177,14 @@ export function PortfolioCreateForm() {
           <input id="github" type="url" {...form.register("github")} className={inputClassName} />
           <p className="mt-1 text-xs text-rose-300">{form.formState.errors.github?.message}</p>
         </div>
-      </div>
 
-      <div>
-        <label htmlFor="demo" className="text-sm text-slate-200">
-          Demo URL <span className="text-slate-400">(optional)</span>
-        </label>
-        <input id="demo" type="url" {...form.register("demo")} className={inputClassName} />
-        <p className="mt-1 text-xs text-rose-300">{form.formState.errors.demo?.message}</p>
+        <div>
+          <label htmlFor="demo" className="text-sm text-slate-200">
+            Demo URL <span className="text-slate-400">(optional)</span>
+          </label>
+          <input id="demo" type="url" {...form.register("demo")} className={inputClassName} />
+          <p className="mt-1 text-xs text-rose-300">{form.formState.errors.demo?.message}</p>
+        </div>
       </div>
 
       <button

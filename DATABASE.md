@@ -4,6 +4,7 @@ id
 title
 description
 thumbnail
+images
 github
 demo
 category

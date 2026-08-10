@@ -6,6 +6,7 @@ import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { Trash2 } from "lucide-react";
 
 import { updatePortfolio } from "@/lib/actions/portfolio";
 import { portfolioFormSchema } from "@/lib/validations/portfolio";
@@ -15,7 +16,8 @@ interface Portfolio {
   id: string;
   title: string;
   description: string;
-  thumbnail: string | null;
+  images: string[];
+  thumbnail?: string | null;
   github: string | null;
   demo: string | null;
   category: string;
@@ -32,14 +34,23 @@ const inputClassName =
 export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const initialImages =
+    portfolio.images && portfolio.images.length > 0
+      ? portfolio.images
+      : portfolio.thumbnail
+        ? [portfolio.thumbnail]
+        : [];
+
+  const [retainedImages, setRetainedImages] = useState<string[]>(initialImages);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const form = useForm<PortfolioFormValues>({
     resolver: zodResolver(portfolioFormSchema),
     defaultValues: {
       title: portfolio.title,
       description: portfolio.description,
-      thumbnail: null,
+      images: null,
       github: portfolio.github ?? "",
       demo: portfolio.demo ?? "",
       category: portfolio.category,
@@ -48,6 +59,20 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
   });
 
   const onSubmit = (values: PortfolioFormValues) => {
+    const selectedFiles = values.images;
+    const newFilesCount = selectedFiles ? selectedFiles.length : 0;
+    const totalCount = retainedImages.length + newFilesCount;
+
+    if (totalCount === 0) {
+      toast.error("Please provide at least 1 image for the project.");
+      return;
+    }
+
+    if (totalCount > 10) {
+      toast.error("Maximum 10 project images are allowed in total.");
+      return;
+    }
+
     startTransition(async () => {
       const formData = new FormData();
 
@@ -58,10 +83,14 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
       formData.append("category", values.category);
       formData.append("featured", String(values.featured));
 
-      const thumbnailFile = values.thumbnail?.item(0);
+      retainedImages.forEach((url) => {
+        formData.append("retainedImages", url);
+      });
 
-      if (thumbnailFile) {
-        formData.append("thumbnail", thumbnailFile);
+      if (selectedFiles) {
+        for (let i = 0; i < selectedFiles.length; i++) {
+          formData.append("images", selectedFiles[i]);
+        }
       }
 
       const result = await updatePortfolio(portfolio.id, formData);
@@ -79,13 +108,21 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    form.setValue("thumbnail", files);
-    if (files && files[0]) {
-      const url = URL.createObjectURL(files[0]);
-      setPreviewUrl(url);
+    form.setValue("images", files);
+
+    if (files) {
+      const urls: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        urls.push(URL.createObjectURL(files[i]));
+      }
+      setPreviewUrls(urls);
     } else {
-      setPreviewUrl(null);
+      setPreviewUrls([]);
     }
+  };
+
+  const handleRemoveRetainedImage = (urlToRemove: string) => {
+    setRetainedImages((prev) => prev.filter((url) => url !== urlToRemove));
   };
 
   return (
@@ -132,52 +169,69 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="thumbnail" className="text-sm text-slate-200">
-            Thumbnail Image
-          </label>
-          <input
-            id="thumbnail"
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className={inputClassName}
-          />
-          <p className="mt-1 text-xs text-rose-300">{form.formState.errors.thumbnail?.message}</p>
+      <div>
+        <label htmlFor="images" className="text-sm text-slate-200">
+          Project Images <span className="text-slate-400">(upload up to 10 images total)</span>
+        </label>
+        <input
+          id="images"
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleFileChange}
+          className={inputClassName}
+        />
+        <p className="mt-1 text-xs text-rose-300">{form.formState.errors.images?.message}</p>
 
-          {/* Image Previews */}
-          {previewUrl ? (
-            <div className="mt-3">
-              <p className="text-xs text-slate-400">New Image Preview:</p>
-              <div className="relative mt-1.5 h-20 w-32 overflow-hidden rounded-lg border border-white/20">
-                <Image
-                  src={previewUrl}
-                  alt="New thumbnail preview"
-                  fill
-                  unoptimized
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          ) : (
-            portfolio.thumbnail && (
-              <div className="mt-3">
-                <p className="text-xs text-slate-400">Current Thumbnail:</p>
-                <div className="relative mt-1.5 h-20 w-32 overflow-hidden rounded-lg border border-white/10">
+        {/* Existing Images Gallery */}
+        {retainedImages.length > 0 && (
+          <div className="mt-4">
+            <p className="text-xs text-slate-400">Current Project Images:</p>
+            <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-5">
+              {retainedImages.map((url) => (
+                <div key={url} className="group relative aspect-video overflow-hidden rounded-lg border border-white/10 bg-slate-900">
                   <Image
-                    src={portfolio.thumbnail}
-                    alt="Current thumbnail"
+                    src={url}
+                    alt="Gallery item"
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveRetainedImage(url)}
+                    className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <Trash2 className="h-5 w-5 text-red-400" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* New Image Previews */}
+        {previewUrls.length > 0 && (
+          <div className="mt-4">
+            <p className="text-xs text-slate-400">New Image Previews ({previewUrls.length}):</p>
+            <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-5">
+              {previewUrls.map((url, i) => (
+                <div key={i} className="relative aspect-video overflow-hidden rounded-lg border border-white/20 bg-slate-900">
+                  <Image
+                    src={url}
+                    alt={`Preview ${i}`}
                     fill
                     unoptimized
                     className="object-cover"
                   />
                 </div>
-              </div>
-            )
-          )}
-        </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
 
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="github" className="text-sm text-slate-200">
             GitHub URL <span className="text-slate-400">(optional)</span>
@@ -185,14 +239,14 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
           <input id="github" type="url" {...form.register("github")} className={inputClassName} />
           <p className="mt-1 text-xs text-rose-300">{form.formState.errors.github?.message}</p>
         </div>
-      </div>
 
-      <div>
-        <label htmlFor="demo" className="text-sm text-slate-200">
-          Demo URL <span className="text-slate-400">(optional)</span>
-        </label>
-        <input id="demo" type="url" {...form.register("demo")} className={inputClassName} />
-        <p className="mt-1 text-xs text-rose-300">{form.formState.errors.demo?.message}</p>
+        <div>
+          <label htmlFor="demo" className="text-sm text-slate-200">
+            Demo URL <span className="text-slate-400">(optional)</span>
+          </label>
+          <input id="demo" type="url" {...form.register("demo")} className={inputClassName} />
+          <p className="mt-1 text-xs text-rose-300">{form.formState.errors.demo?.message}</p>
+        </div>
       </div>
 
       <div className="flex items-center gap-3 pt-2">

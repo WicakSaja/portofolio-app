@@ -151,7 +151,7 @@ export async function updateExperience(id: string, formData: FormData): Promise<
       newImageUrls.push(publicUrl.data.publicUrl);
     }
 
-    const updatedImages = [...retainedImages, ...newImageUrls].slice(0, 5);
+    const updatedImages = [...retainedImages, ...newImageUrls].slice(0, 10);
 
     await prisma.experience.update({
       where: { id },

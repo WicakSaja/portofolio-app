@@ -12,6 +12,7 @@ model Portfolio {
   title       String
   description String
   thumbnail   String?
+  images      String[]
   github      String?
   demo        String?
   category    String

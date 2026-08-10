@@ -8,10 +8,12 @@ import { portfolioUploadSchema } from "@/lib/validations/portfolio";
 import type { ActionState } from "@/types/portfolio";
 
 export async function createPortfolio(formData: FormData): Promise<ActionState> {
+  const images = formData.getAll("images").filter((f) => f instanceof File && f.name !== "" && f.size > 0) as File[];
+
   const values = {
     title: String(formData.get("title") ?? ""),
     description: String(formData.get("description") ?? ""),
-    thumbnail: formData.get("thumbnail") instanceof File ? formData.get("thumbnail") : null,
+    images,
     github: String(formData.get("github") ?? ""),
     demo: String(formData.get("demo") ?? ""),
     category: String(formData.get("category") ?? ""),
@@ -27,38 +29,44 @@ export async function createPortfolio(formData: FormData): Promise<ActionState> 
     };
   }
 
+  if (parsed.data.images.length === 0) {
+    return {
+      success: false,
+      message: "At least 1 project image is required",
+    };
+  }
+
   try {
-    let thumbnailUrl: string | null = null;
+    const imageUrls: string[] = [];
 
-    const thumbnailFile = parsed.data.thumbnail;
-
-    if (thumbnailFile) {
-      const fileExtension = thumbnailFile.name.split(".").pop() ?? "png";
+    for (const imageFile of parsed.data.images) {
+      const fileExtension = imageFile.name.split(".").pop() ?? "png";
       const fileName = `${crypto.randomUUID()}.${fileExtension}`;
 
       const uploadResult = await supabaseStorage.storage
         .from(portfolioThumbnailBucket)
-        .upload(fileName, thumbnailFile, {
-          contentType: thumbnailFile.type,
+        .upload(fileName, imageFile, {
+          contentType: imageFile.type,
           upsert: false,
         });
 
       if (uploadResult.error) {
         return {
           success: false,
-          message: uploadResult.error.message,
+          message: `Failed to upload image: ${uploadResult.error.message}`,
         };
       }
 
       const publicUrl = supabaseStorage.storage.from(portfolioThumbnailBucket).getPublicUrl(fileName);
-      thumbnailUrl = publicUrl.data.publicUrl;
+      imageUrls.push(publicUrl.data.publicUrl);
     }
 
     await prisma.portfolio.create({
       data: {
         title: parsed.data.title,
         description: parsed.data.description,
-        thumbnail: thumbnailUrl,
+        thumbnail: imageUrls[0] ?? null,
+        images: imageUrls,
         github: parsed.data.github || null,
         demo: parsed.data.demo || null,
         category: parsed.data.category,
@@ -67,6 +75,7 @@ export async function createPortfolio(formData: FormData): Promise<ActionState> 
     });
 
     revalidatePath("/admin");
+    revalidatePath("/admin/portfolio");
 
     return {
       success: true,
@@ -81,10 +90,13 @@ export async function createPortfolio(formData: FormData): Promise<ActionState> 
 }
 
 export async function updatePortfolio(id: string, formData: FormData): Promise<ActionState> {
+  const images = formData.getAll("images").filter((f) => f instanceof File && f.name !== "" && f.size > 0) as File[];
+  const retainedImages = formData.getAll("retainedImages").map(String);
+
   const values = {
     title: String(formData.get("title") ?? ""),
     description: String(formData.get("description") ?? ""),
-    thumbnail: formData.get("thumbnail") instanceof File ? formData.get("thumbnail") : null,
+    images,
     github: String(formData.get("github") ?? ""),
     demo: String(formData.get("demo") ?? ""),
     category: String(formData.get("category") ?? ""),
@@ -112,41 +124,52 @@ export async function updatePortfolio(id: string, formData: FormData): Promise<A
       };
     }
 
-    let thumbnailUrl: string | undefined = undefined;
-    const thumbnailFile = parsed.data.thumbnail;
+    // Identify and delete removed images from Supabase storage
+    const allExistingImages = [...existing.images, ...(existing.thumbnail ? [existing.thumbnail] : [])];
+    const uniqueExistingImages = Array.from(new Set(allExistingImages));
+    const removedImages = uniqueExistingImages.filter((img) => !retainedImages.includes(img));
 
-    if (thumbnailFile) {
-      const fileExtension = thumbnailFile.name.split(".").pop() ?? "png";
+    for (const url of removedImages) {
+      try {
+        const fileName = url.split("/").pop();
+        if (fileName) {
+          await supabaseStorage.storage.from(portfolioThumbnailBucket).remove([fileName]);
+        }
+      } catch (e) {
+        console.error("Failed to delete removed image from storage", e);
+      }
+    }
+
+    const newImageUrls: string[] = [];
+    for (const imageFile of parsed.data.images) {
+      const fileExtension = imageFile.name.split(".").pop() ?? "png";
       const fileName = `${crypto.randomUUID()}.${fileExtension}`;
 
       const uploadResult = await supabaseStorage.storage
         .from(portfolioThumbnailBucket)
-        .upload(fileName, thumbnailFile, {
-          contentType: thumbnailFile.type,
+        .upload(fileName, imageFile, {
+          contentType: imageFile.type,
           upsert: false,
         });
 
       if (uploadResult.error) {
         return {
           success: false,
-          message: uploadResult.error.message,
+          message: `Failed to upload image: ${uploadResult.error.message}`,
         };
       }
 
       const publicUrl = supabaseStorage.storage.from(portfolioThumbnailBucket).getPublicUrl(fileName);
-      thumbnailUrl = publicUrl.data.publicUrl;
+      newImageUrls.push(publicUrl.data.publicUrl);
+    }
 
-      // Try to delete old thumbnail file from Supabase storage if it exists
-      if (existing.thumbnail) {
-        try {
-          const oldFileName = existing.thumbnail.split("/").pop();
-          if (oldFileName) {
-            await supabaseStorage.storage.from(portfolioThumbnailBucket).remove([oldFileName]);
-          }
-        } catch (e) {
-          console.error("Failed to delete old thumbnail", e);
-        }
-      }
+    const updatedImages = [...retainedImages, ...newImageUrls].slice(0, 10);
+
+    if (updatedImages.length === 0) {
+      return {
+        success: false,
+        message: "At least 1 project image is required",
+      };
     }
 
     await prisma.portfolio.update({
@@ -154,7 +177,8 @@ export async function updatePortfolio(id: string, formData: FormData): Promise<A
       data: {
         title: parsed.data.title,
         description: parsed.data.description,
-        ...(thumbnailUrl !== undefined ? { thumbnail: thumbnailUrl } : {}),
+        thumbnail: updatedImages[0] ?? null,
+        images: updatedImages,
         github: parsed.data.github || null,
         demo: parsed.data.demo || null,
         category: parsed.data.category,
@@ -190,15 +214,17 @@ export async function deletePortfolio(id: string): Promise<ActionState> {
       };
     }
 
-    // Delete thumbnail file from Supabase storage if it exists
-    if (existing.thumbnail) {
+    const allImages = [...existing.images, ...(existing.thumbnail ? [existing.thumbnail] : [])];
+    const uniqueImages = Array.from(new Set(allImages));
+
+    for (const url of uniqueImages) {
       try {
-        const fileName = existing.thumbnail.split("/").pop();
+        const fileName = url.split("/").pop();
         if (fileName) {
           await supabaseStorage.storage.from(portfolioThumbnailBucket).remove([fileName]);
         }
       } catch (e) {
-        console.error("Failed to delete thumbnail from storage", e);
+        console.error("Failed to delete project image on deletion", e);
       }
     }
 

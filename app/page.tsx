@@ -1,35 +1,40 @@
-export default function Home() {
+import { prisma } from "@/lib/db/prisma";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { Hero } from "@/components/sections/hero";
+import { Marquee } from "@/components/sections/marquee";
+import { About } from "@/components/sections/about";
+import { Skills } from "@/components/sections/skills";
+import { ExperienceSection } from "@/components/sections/experience";
+import { PortfolioSection } from "@/components/sections/portfolio";
+import { Contact } from "@/components/sections/contact";
+
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [settings, skills, experiences, projects, contact] = await Promise.all([
+    prisma.settings.findFirst(),
+    prisma.skill.findMany({ orderBy: { category: "asc" } }),
+    prisma.experience.findMany({ orderBy: { startDate: "desc" } }),
+    prisma.portfolio.findMany({ orderBy: { createdAt: "desc" } }),
+    prisma.contact.findFirst(),
+  ]);
+
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(120,119,198,0.12),_transparent_35%),linear-gradient(180deg,_#0f172a_0%,_#020617_100%)] text-slate-50">
-      <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-6 py-16 sm:px-10 lg:px-12">
-        <div className="max-w-2xl space-y-8">
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 backdrop-blur">
-            Personal Portfolio CMS
-          </div>
-          <div className="space-y-5">
-            <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              A clean admin-first portfolio foundation for content you control.
-            </h1>
-            <p className="max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
-              Manage projects, skills, experience, contact details, and site settings from one dashboard, while the public site stays fast and responsive.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <a
-              href="/admin"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-200"
-            >
-              Open Dashboard
-            </a>
-            <a
-              href="/projects"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 text-sm font-medium text-white transition-colors hover:bg-white/10"
-            >
-              View Public Site
-            </a>
-          </div>
-        </div>
+    <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text-primary)]">
+      <Navbar />
+
+      <main>
+        <Hero settings={settings} />
+        <Marquee skills={skills} />
+        <About settings={settings} />
+        <Skills skills={skills} />
+        <ExperienceSection experiences={experiences} />
+        <PortfolioSection projects={projects} />
+        <Contact contact={contact} />
       </main>
+
+      <Footer contact={contact} resume={settings?.resume} />
     </div>
   );
 }

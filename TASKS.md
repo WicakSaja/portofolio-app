@@ -38,6 +38,10 @@ Phase 8
 
 Public Website
 
+- [x] Landing Page (single page)
+- [x] Detail Page Portofolio
+- [x] Detail Page Experience
+
 Phase 9
 
 Deployment
