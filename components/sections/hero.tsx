@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { LightBeamButton } from '@/components/ui/light-beam-button';
-import { DotPattern } from '@/components/ui/dot-pattern';
 import { ArrowRight } from 'lucide-react';
 
 interface HeroProps {
@@ -18,7 +17,7 @@ export function Hero({ settings }: HeroProps) {
   const avatar = settings?.avatar;
 
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-24 pb-12 sm:pt-32 sm:pb-16 lg:py-20 overflow-hidden relative isolate">
+    <section id="hero" className="min-h-screen flex items-center pt-24 pb-12 sm:pt-32 sm:pb-16 lg:py-20 overflow-hidden relative">
       <style>{`
         @keyframes hero-fade-up {
           from { opacity: 0; transform: translateY(24px); }
@@ -58,7 +57,7 @@ export function Hero({ settings }: HeroProps) {
 
           {/* Right Profile Image (48%) */}
           <div className="hero-image w-full lg:w-[48%] flex justify-center lg:justify-end z-10 relative mb-8 lg:mb-0">
-            <div className="relative w-72 h-72 sm:w-96 sm:h-96 lg:w-[440px] lg:h-[440px] xl:w-[480px] xl:h-[480px] rounded-full p-2.5 sm:p-3 border-4 border-[var(--color-surface)] shadow-2xl bg-[var(--color-background)] transition-transform duration-300 hover:scale-[1.02] isolate" style={{ transform: 'translateZ(0)', willChange: 'transform' }}>
+            <div className="relative w-72 h-72 sm:w-96 sm:h-96 lg:w-[440px] lg:h-[440px] xl:w-[480px] xl:h-[480px] rounded-full p-2.5 sm:p-3 border-4 border-[var(--color-surface)] shadow-2xl bg-[var(--color-background)] transition-transform duration-300 hover:scale-[1.02]">
               {avatar ? (
                 <div className="relative w-full h-full rounded-full overflow-hidden">
                   <Image 
@@ -82,14 +81,16 @@ export function Hero({ settings }: HeroProps) {
         </div>
       </div>
 
-      {/* Dot Pattern Background */}
-      <DotPattern
-        width={20}
-        height={20}
-        cx={1}
-        cy={1}
-        cr={1}
-        className="-z-10 text-[var(--color-text-secondary)] opacity-30 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"
+      {/* Decorative Dots Background — spotlight in center fades to edges */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 2px 2px, var(--color-text-primary) 1px, transparent 0)',
+          backgroundSize: '32px 32px',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 100%)',
+          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 100%)',
+          opacity: 0.25,
+        }}
       />
     </section>
   );

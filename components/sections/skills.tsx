@@ -26,10 +26,24 @@ export function Skills({ skills }: SkillsProps) {
     return acc;
   }, {} as Record<string, Skill[]>);
 
-  const gradientString = `conic-gradient(from 0deg, transparent 0%, #8b5cf6 40%, #06b6d4 50%, transparent 60%, transparent 100%)`;
+  const gradientString = `conic-gradient(from var(--gradient-angle), transparent 0%, #8b5cf6 40%, #06b6d4 50%, transparent 60%, transparent 100%)`;
 
   return (
     <section id="skills" className="py-12 sm:py-16 lg:py-20 px-6 bg-[var(--color-background)]">
+      <style>{`
+        @property --gradient-angle {
+          syntax: "<angle>";
+          initial-value: 0deg;
+          inherits: false;
+        }
+        @keyframes border-spin {
+          from { --gradient-angle: 0deg; }
+          to { --gradient-angle: 360deg; }
+        }
+        .animate-border-spin {
+          animation: border-spin 2s linear infinite;
+        }
+      `}</style>
       <div className="max-w-7xl mx-auto">
         <AnimateOnScroll>
           <SectionHeader 
@@ -50,22 +64,19 @@ export function Skills({ skills }: SkillsProps) {
                   {categorySkills.map((skill) => (
                     <div 
                       key={skill.id} 
-                      className="group relative isolate flex flex-col p-4 rounded-lg bg-[var(--color-surface)] transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(139,92,246,0.25)] overflow-hidden"
+                      className="group relative isolate flex flex-col p-4 rounded-lg bg-[var(--color-surface)] transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(139,92,246,0.25)]"
                     >
                       {/* Default Static Border */}
                       <div className="absolute inset-0 -z-10 rounded-lg border border-[var(--color-border)] group-hover:border-transparent transition-colors" />
 
-                      {/* Hardware-Accelerated Light Beam Gradient Border on Hover */}
-                      <div className="absolute inset-0 -z-20 overflow-hidden rounded-lg p-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                        <div 
-                          className="absolute -inset-[100%] animate-[spin_3s_linear_infinite]"
-                          style={{
-                            background: gradientString,
-                            transformOrigin: "center center",
-                            willChange: "transform"
-                          }}
-                        />
-                      </div>
+                      {/* Rotating Light Beam Gradient Border on Hover */}
+                      <div 
+                        className="absolute inset-0 -z-10 rounded-lg p-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-border-spin" 
+                        style={{ 
+                          '--gradient-angle': '0deg',
+                          background: gradientString
+                        } as React.CSSProperties} 
+                      />
 
                       {/* Inner Surface Mask */}
                       <div className="absolute inset-[1px] -z-10 rounded-[7px] bg-[var(--color-surface)]" />

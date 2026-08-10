@@ -44,4 +44,4 @@ Public Website
 
 Phase 9
 
-Deployment
+- [x] Deployment
