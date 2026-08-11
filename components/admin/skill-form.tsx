@@ -114,11 +114,15 @@ export function SkillForm({ skill }: SkillFormProps) {
         </div>
 
         <div>
-          <label htmlFor="level" className="text-sm text-slate-200 flex justify-between">
+          <label htmlFor="level" className="text-sm text-slate-200 flex justify-between items-center">
             <span>Proficiency Level</span>
-            <span className="font-semibold text-white">{levelValue}%</span>
+            <span className="font-semibold text-white bg-white/10 px-2.5 py-0.5 rounded-md text-xs">
+              {levelValue}% — {
+                levelValue >= 99 ? "Expert" : levelValue >= 75 ? "Advanced" : levelValue >= 51 ? "Proficient" : "Developing"
+              }
+            </span>
           </label>
-          <div className="flex items-center gap-3 mt-4">
+          <div className="flex items-center gap-3 mt-3">
             <input
               id="level"
               type="range"
@@ -132,6 +136,17 @@ export function SkillForm({ skill }: SkillFormProps) {
             />
           </div>
           <p className="mt-1 text-xs text-rose-300">{form.formState.errors.level?.message}</p>
+
+          {/* Keterangan Rentang Level */}
+          <div className="mt-3 p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 space-y-1.5">
+            <p className="font-semibold text-slate-200 text-[11px] uppercase tracking-wider">Note Keterangan Level:</p>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px] text-slate-400">
+              <div><span className="text-white font-medium">Developing:</span> 25% – 50%</div>
+              <div><span className="text-white font-medium">Proficient:</span> 51% – 74%</div>
+              <div><span className="text-white font-medium">Advanced:</span> 75% – 98%</div>
+              <div><span className="text-white font-medium">Expert:</span> 99% – 100%</div>
+            </div>
+          </div>
         </div>
       </div>
 
