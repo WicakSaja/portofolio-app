@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db/prisma";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -6,10 +7,17 @@ import { Marquee } from "@/components/sections/marquee";
 import { About } from "@/components/sections/about";
 import { Skills } from "@/components/sections/skills";
 import { ExperienceSection } from "@/components/sections/experience";
-import { PortfolioSection } from "@/components/sections/portfolio";
+import { ProjectsSection } from "@/components/sections/projects";
 import { Contact } from "@/components/sections/contact";
+import { buildGlobalMetadata } from "@/lib/seo/metadata";
+import { generateHomepageSchema } from "@/lib/seo/schema";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await prisma.settings.findFirst();
+  return buildGlobalMetadata(settings, "/");
+}
 
 export default async function Home() {
   const [settings, skills, experiences, projects, contact] = await Promise.all([
@@ -20,8 +28,19 @@ export default async function Home() {
     prisma.contact.findFirst(),
   ]);
 
+  const jsonLdSchemas = generateHomepageSchema(settings, contact);
+
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text-primary)]">
+      {/* Structured Data (JSON-LD) */}
+      {jsonLdSchemas.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+
       <Navbar />
 
       <main>
@@ -30,7 +49,7 @@ export default async function Home() {
         <About settings={settings} />
         <Skills skills={skills} />
         <ExperienceSection experiences={experiences} />
-        <PortfolioSection projects={projects} />
+        <ProjectsSection projects={projects} />
         <Contact contact={contact} />
       </main>
 

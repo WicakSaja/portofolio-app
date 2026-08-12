@@ -1,7 +1,4 @@
-export type SettingsFormValues = {
-  heroTitle: string;
-  heroSubtitle: string;
-  about: string;
-  avatar: FileList | null;
-  resume: FileList | null;
-};
+import { z } from "zod";
+import { settingsFormSchema } from "@/lib/validations/settings";
+
+export type SettingsFormValues = z.infer<typeof settingsFormSchema>;

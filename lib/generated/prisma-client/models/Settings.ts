@@ -31,6 +31,20 @@ export type SettingsMinAggregateOutputType = {
   about: string | null
   resume: string | null
   avatar: string | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoCanonicalUrl: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  authorName: string | null
+  authorAlternateName: string | null
+  authorJobTitle: string | null
+  authorDescription: string | null
+  googleSiteVerification: string | null
+  bingSiteVerification: string | null
+  robotsIndex: boolean | null
+  robotsFollow: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -42,6 +56,20 @@ export type SettingsMaxAggregateOutputType = {
   about: string | null
   resume: string | null
   avatar: string | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoCanonicalUrl: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  authorName: string | null
+  authorAlternateName: string | null
+  authorJobTitle: string | null
+  authorDescription: string | null
+  googleSiteVerification: string | null
+  bingSiteVerification: string | null
+  robotsIndex: boolean | null
+  robotsFollow: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,6 +81,20 @@ export type SettingsCountAggregateOutputType = {
   about: number
   resume: number
   avatar: number
+  seoTitle: number
+  seoDescription: number
+  seoCanonicalUrl: number
+  seoOgTitle: number
+  seoOgDescription: number
+  seoOgImage: number
+  authorName: number
+  authorAlternateName: number
+  authorJobTitle: number
+  authorDescription: number
+  googleSiteVerification: number
+  bingSiteVerification: number
+  robotsIndex: number
+  robotsFollow: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -66,6 +108,20 @@ export type SettingsMinAggregateInputType = {
   about?: true
   resume?: true
   avatar?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoCanonicalUrl?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  authorName?: true
+  authorAlternateName?: true
+  authorJobTitle?: true
+  authorDescription?: true
+  googleSiteVerification?: true
+  bingSiteVerification?: true
+  robotsIndex?: true
+  robotsFollow?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +133,20 @@ export type SettingsMaxAggregateInputType = {
   about?: true
   resume?: true
   avatar?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoCanonicalUrl?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  authorName?: true
+  authorAlternateName?: true
+  authorJobTitle?: true
+  authorDescription?: true
+  googleSiteVerification?: true
+  bingSiteVerification?: true
+  robotsIndex?: true
+  robotsFollow?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +158,20 @@ export type SettingsCountAggregateInputType = {
   about?: true
   resume?: true
   avatar?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoCanonicalUrl?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  authorName?: true
+  authorAlternateName?: true
+  authorJobTitle?: true
+  authorDescription?: true
+  googleSiteVerification?: true
+  bingSiteVerification?: true
+  robotsIndex?: true
+  robotsFollow?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -172,6 +256,20 @@ export type SettingsGroupByOutputType = {
   about: string
   resume: string | null
   avatar: string | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoCanonicalUrl: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  authorName: string | null
+  authorAlternateName: string | null
+  authorJobTitle: string | null
+  authorDescription: string | null
+  googleSiteVerification: string | null
+  bingSiteVerification: string | null
+  robotsIndex: boolean
+  robotsFollow: boolean
   createdAt: Date
   updatedAt: Date
   _count: SettingsCountAggregateOutputType | null
@@ -204,6 +302,20 @@ export type SettingsWhereInput = {
   about?: Prisma.StringFilter<"Settings"> | string
   resume?: Prisma.StringNullableFilter<"Settings"> | string | null
   avatar?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoTitle?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoOgTitle?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoOgDescription?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoOgImage?: Prisma.StringNullableFilter<"Settings"> | string | null
+  authorName?: Prisma.StringNullableFilter<"Settings"> | string | null
+  authorAlternateName?: Prisma.StringNullableFilter<"Settings"> | string | null
+  authorJobTitle?: Prisma.StringNullableFilter<"Settings"> | string | null
+  authorDescription?: Prisma.StringNullableFilter<"Settings"> | string | null
+  googleSiteVerification?: Prisma.StringNullableFilter<"Settings"> | string | null
+  bingSiteVerification?: Prisma.StringNullableFilter<"Settings"> | string | null
+  robotsIndex?: Prisma.BoolFilter<"Settings"> | boolean
+  robotsFollow?: Prisma.BoolFilter<"Settings"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Settings"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Settings"> | Date | string
 }
@@ -215,6 +327,20 @@ export type SettingsOrderByWithRelationInput = {
   about?: Prisma.SortOrder
   resume?: Prisma.SortOrderInput | Prisma.SortOrder
   avatar?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorName?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorAlternateName?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorJobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleSiteVerification?: Prisma.SortOrderInput | Prisma.SortOrder
+  bingSiteVerification?: Prisma.SortOrderInput | Prisma.SortOrder
+  robotsIndex?: Prisma.SortOrder
+  robotsFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -229,6 +355,20 @@ export type SettingsWhereUniqueInput = Prisma.AtLeast<{
   about?: Prisma.StringFilter<"Settings"> | string
   resume?: Prisma.StringNullableFilter<"Settings"> | string | null
   avatar?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoTitle?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoOgTitle?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoOgDescription?: Prisma.StringNullableFilter<"Settings"> | string | null
+  seoOgImage?: Prisma.StringNullableFilter<"Settings"> | string | null
+  authorName?: Prisma.StringNullableFilter<"Settings"> | string | null
+  authorAlternateName?: Prisma.StringNullableFilter<"Settings"> | string | null
+  authorJobTitle?: Prisma.StringNullableFilter<"Settings"> | string | null
+  authorDescription?: Prisma.StringNullableFilter<"Settings"> | string | null
+  googleSiteVerification?: Prisma.StringNullableFilter<"Settings"> | string | null
+  bingSiteVerification?: Prisma.StringNullableFilter<"Settings"> | string | null
+  robotsIndex?: Prisma.BoolFilter<"Settings"> | boolean
+  robotsFollow?: Prisma.BoolFilter<"Settings"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Settings"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Settings"> | Date | string
 }, "id">
@@ -240,6 +380,20 @@ export type SettingsOrderByWithAggregationInput = {
   about?: Prisma.SortOrder
   resume?: Prisma.SortOrderInput | Prisma.SortOrder
   avatar?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorName?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorAlternateName?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorJobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleSiteVerification?: Prisma.SortOrderInput | Prisma.SortOrder
+  bingSiteVerification?: Prisma.SortOrderInput | Prisma.SortOrder
+  robotsIndex?: Prisma.SortOrder
+  robotsFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SettingsCountOrderByAggregateInput
@@ -257,6 +411,20 @@ export type SettingsScalarWhereWithAggregatesInput = {
   about?: Prisma.StringWithAggregatesFilter<"Settings"> | string
   resume?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
   avatar?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  seoTitle?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  seoDescription?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  seoOgTitle?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  seoOgDescription?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  seoOgImage?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  authorName?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  authorAlternateName?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  authorJobTitle?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  authorDescription?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  googleSiteVerification?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  bingSiteVerification?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  robotsIndex?: Prisma.BoolWithAggregatesFilter<"Settings"> | boolean
+  robotsFollow?: Prisma.BoolWithAggregatesFilter<"Settings"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Settings"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Settings"> | Date | string
 }
@@ -268,6 +436,20 @@ export type SettingsCreateInput = {
   about: string
   resume?: string | null
   avatar?: string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoCanonicalUrl?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  authorName?: string | null
+  authorAlternateName?: string | null
+  authorJobTitle?: string | null
+  authorDescription?: string | null
+  googleSiteVerification?: string | null
+  bingSiteVerification?: string | null
+  robotsIndex?: boolean
+  robotsFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -279,6 +461,20 @@ export type SettingsUncheckedCreateInput = {
   about: string
   resume?: string | null
   avatar?: string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoCanonicalUrl?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  authorName?: string | null
+  authorAlternateName?: string | null
+  authorJobTitle?: string | null
+  authorDescription?: string | null
+  googleSiteVerification?: string | null
+  bingSiteVerification?: string | null
+  robotsIndex?: boolean
+  robotsFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -290,6 +486,20 @@ export type SettingsUpdateInput = {
   about?: Prisma.StringFieldUpdateOperationsInput | string
   resume?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorAlternateName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorJobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleSiteVerification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bingSiteVerification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  robotsIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  robotsFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -301,6 +511,20 @@ export type SettingsUncheckedUpdateInput = {
   about?: Prisma.StringFieldUpdateOperationsInput | string
   resume?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorAlternateName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorJobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleSiteVerification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bingSiteVerification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  robotsIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  robotsFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -312,6 +536,20 @@ export type SettingsCreateManyInput = {
   about: string
   resume?: string | null
   avatar?: string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoCanonicalUrl?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  authorName?: string | null
+  authorAlternateName?: string | null
+  authorJobTitle?: string | null
+  authorDescription?: string | null
+  googleSiteVerification?: string | null
+  bingSiteVerification?: string | null
+  robotsIndex?: boolean
+  robotsFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -323,6 +561,20 @@ export type SettingsUpdateManyMutationInput = {
   about?: Prisma.StringFieldUpdateOperationsInput | string
   resume?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorAlternateName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorJobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleSiteVerification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bingSiteVerification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  robotsIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  robotsFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -334,6 +586,20 @@ export type SettingsUncheckedUpdateManyInput = {
   about?: Prisma.StringFieldUpdateOperationsInput | string
   resume?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorAlternateName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorJobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleSiteVerification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bingSiteVerification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  robotsIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  robotsFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -345,6 +611,20 @@ export type SettingsCountOrderByAggregateInput = {
   about?: Prisma.SortOrder
   resume?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
+  authorAlternateName?: Prisma.SortOrder
+  authorJobTitle?: Prisma.SortOrder
+  authorDescription?: Prisma.SortOrder
+  googleSiteVerification?: Prisma.SortOrder
+  bingSiteVerification?: Prisma.SortOrder
+  robotsIndex?: Prisma.SortOrder
+  robotsFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -356,6 +636,20 @@ export type SettingsMaxOrderByAggregateInput = {
   about?: Prisma.SortOrder
   resume?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
+  authorAlternateName?: Prisma.SortOrder
+  authorJobTitle?: Prisma.SortOrder
+  authorDescription?: Prisma.SortOrder
+  googleSiteVerification?: Prisma.SortOrder
+  bingSiteVerification?: Prisma.SortOrder
+  robotsIndex?: Prisma.SortOrder
+  robotsFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -367,6 +661,20 @@ export type SettingsMinOrderByAggregateInput = {
   about?: Prisma.SortOrder
   resume?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
+  authorAlternateName?: Prisma.SortOrder
+  authorJobTitle?: Prisma.SortOrder
+  authorDescription?: Prisma.SortOrder
+  googleSiteVerification?: Prisma.SortOrder
+  bingSiteVerification?: Prisma.SortOrder
+  robotsIndex?: Prisma.SortOrder
+  robotsFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -380,6 +688,20 @@ export type SettingsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   about?: boolean
   resume?: boolean
   avatar?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoCanonicalUrl?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  authorName?: boolean
+  authorAlternateName?: boolean
+  authorJobTitle?: boolean
+  authorDescription?: boolean
+  googleSiteVerification?: boolean
+  bingSiteVerification?: boolean
+  robotsIndex?: boolean
+  robotsFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["settings"]>
@@ -391,6 +713,20 @@ export type SettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   about?: boolean
   resume?: boolean
   avatar?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoCanonicalUrl?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  authorName?: boolean
+  authorAlternateName?: boolean
+  authorJobTitle?: boolean
+  authorDescription?: boolean
+  googleSiteVerification?: boolean
+  bingSiteVerification?: boolean
+  robotsIndex?: boolean
+  robotsFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["settings"]>
@@ -402,6 +738,20 @@ export type SettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   about?: boolean
   resume?: boolean
   avatar?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoCanonicalUrl?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  authorName?: boolean
+  authorAlternateName?: boolean
+  authorJobTitle?: boolean
+  authorDescription?: boolean
+  googleSiteVerification?: boolean
+  bingSiteVerification?: boolean
+  robotsIndex?: boolean
+  robotsFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["settings"]>
@@ -413,11 +763,25 @@ export type SettingsSelectScalar = {
   about?: boolean
   resume?: boolean
   avatar?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoCanonicalUrl?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  authorName?: boolean
+  authorAlternateName?: boolean
+  authorJobTitle?: boolean
+  authorDescription?: boolean
+  googleSiteVerification?: boolean
+  bingSiteVerification?: boolean
+  robotsIndex?: boolean
+  robotsFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "heroTitle" | "heroSubtitle" | "about" | "resume" | "avatar" | "createdAt" | "updatedAt", ExtArgs["result"]["settings"]>
+export type SettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "heroTitle" | "heroSubtitle" | "about" | "resume" | "avatar" | "seoTitle" | "seoDescription" | "seoCanonicalUrl" | "seoOgTitle" | "seoOgDescription" | "seoOgImage" | "authorName" | "authorAlternateName" | "authorJobTitle" | "authorDescription" | "googleSiteVerification" | "bingSiteVerification" | "robotsIndex" | "robotsFollow" | "createdAt" | "updatedAt", ExtArgs["result"]["settings"]>
 
 export type $SettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Settings"
@@ -429,6 +793,20 @@ export type $SettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     about: string
     resume: string | null
     avatar: string | null
+    seoTitle: string | null
+    seoDescription: string | null
+    seoCanonicalUrl: string | null
+    seoOgTitle: string | null
+    seoOgDescription: string | null
+    seoOgImage: string | null
+    authorName: string | null
+    authorAlternateName: string | null
+    authorJobTitle: string | null
+    authorDescription: string | null
+    googleSiteVerification: string | null
+    bingSiteVerification: string | null
+    robotsIndex: boolean
+    robotsFollow: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["settings"]>
@@ -860,6 +1238,20 @@ export interface SettingsFieldRefs {
   readonly about: Prisma.FieldRef<"Settings", 'String'>
   readonly resume: Prisma.FieldRef<"Settings", 'String'>
   readonly avatar: Prisma.FieldRef<"Settings", 'String'>
+  readonly seoTitle: Prisma.FieldRef<"Settings", 'String'>
+  readonly seoDescription: Prisma.FieldRef<"Settings", 'String'>
+  readonly seoCanonicalUrl: Prisma.FieldRef<"Settings", 'String'>
+  readonly seoOgTitle: Prisma.FieldRef<"Settings", 'String'>
+  readonly seoOgDescription: Prisma.FieldRef<"Settings", 'String'>
+  readonly seoOgImage: Prisma.FieldRef<"Settings", 'String'>
+  readonly authorName: Prisma.FieldRef<"Settings", 'String'>
+  readonly authorAlternateName: Prisma.FieldRef<"Settings", 'String'>
+  readonly authorJobTitle: Prisma.FieldRef<"Settings", 'String'>
+  readonly authorDescription: Prisma.FieldRef<"Settings", 'String'>
+  readonly googleSiteVerification: Prisma.FieldRef<"Settings", 'String'>
+  readonly bingSiteVerification: Prisma.FieldRef<"Settings", 'String'>
+  readonly robotsIndex: Prisma.FieldRef<"Settings", 'Boolean'>
+  readonly robotsFollow: Prisma.FieldRef<"Settings", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Settings", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Settings", 'DateTime'>
 }

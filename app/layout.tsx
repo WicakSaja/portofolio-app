@@ -3,8 +3,9 @@ import { Inter, Open_Sans, JetBrains_Mono, Geist } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { SEO_CONFIG } from "@/lib/seo/config";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,25 +26,16 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portofolio - @WicakSaja",
-  description:
-    "Personal portfolio showcasing projects, skills, and professional experience.",
+  metadataBase: new URL(SEO_CONFIG.siteUrl),
+  title: {
+    default: SEO_CONFIG.defaultTitle,
+    template: "%s | Bayu Wicaksono",
+  },
+  description: SEO_CONFIG.defaultDescription,
   icons: {
     icon: "/BW.png",
     shortcut: "/BW.png",
     apple: "/BW.png",
-  },
-  openGraph: {
-    title: "Portofolio - @WicakSaja",
-    description:
-      "Personal portfolio showcasing projects, skills, and professional experience.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Portofolio - @WicakSaja",
-    description:
-      "Personal portfolio showcasing projects, skills, and professional experience.",
   },
 };
 
@@ -54,7 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="id"
       className={cn("h-full", "antialiased", inter.variable, openSans.variable, jetbrainsMono.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col">

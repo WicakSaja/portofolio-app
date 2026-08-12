@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Calendar, Building2 } from "lucide-react";
+import { ArrowLeft, Calendar, Building2, ChevronRight, Home as HomeIcon } from "lucide-react";
 
 import { prisma } from "@/lib/db/prisma";
+import { buildExperienceMetadata } from "@/lib/seo/metadata";
+import { generateExperienceSchema } from "@/lib/seo/schema";
 
 export const dynamic = "force-dynamic";
 
@@ -21,16 +23,16 @@ function formatDate(date: Date): string {
 
 export async function generateMetadata({ params }: ExperienceDetailPageProps): Promise<Metadata> {
   const { id } = await params;
-  const experience = await prisma.experience.findUnique({ where: { id } });
+  const [experience, globalSettings] = await Promise.all([
+    prisma.experience.findUnique({ where: { id } }),
+    prisma.settings.findFirst(),
+  ]);
 
   if (!experience) {
     return { title: "Experience Not Found" };
   }
 
-  return {
-    title: `${experience.position} at ${experience.company} — Experience`,
-    description: experience.description.slice(0, 160),
-  };
+  return buildExperienceMetadata(experience, globalSettings);
 }
 
 export default async function ExperienceDetailPage({ params }: ExperienceDetailPageProps) {
@@ -43,15 +45,46 @@ export default async function ExperienceDetailPage({ params }: ExperienceDetailP
   }
 
   const dateRange = `${formatDate(experience.startDate)} – ${experience.endDate ? formatDate(experience.endDate) : "Present"}`;
+  const jsonLdSchemas = generateExperienceSchema(experience);
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text-primary)]">
-      {/* Navigation */}
+      {/* Structured Data (JSON-LD) */}
+      {jsonLdSchemas.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+
+      {/* Navigation & Breadcrumbs */}
       <nav className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-background)]/95 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-[var(--color-text-secondary)]">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors"
+            >
+              <HomeIcon className="h-3.5 w-3.5" />
+              <span>Home</span>
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
+            <Link
+              href="/#experience"
+              className="hover:text-[var(--color-text-primary)] transition-colors"
+            >
+              Experience
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
+            <span className="text-[var(--color-text-primary)] font-medium truncate max-w-[150px] sm:max-w-[300px]">
+              {experience.position}
+            </span>
+          </div>
+
           <Link
             href="/#experience"
-            className="inline-flex items-center gap-2 text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Experience
@@ -91,9 +124,10 @@ export default async function ExperienceDetailPage({ params }: ExperienceDetailP
           <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
             <Image
               src={experience.images[0]}
-              alt={`${experience.position} at ${experience.company}`}
+              alt={`Dokumentasi posisi ${experience.position} di ${experience.company} - Bayu Wicaksono`}
               fill
               unoptimized
+              priority
               className="object-cover"
             />
           </div>
@@ -129,7 +163,7 @@ export default async function ExperienceDetailPage({ params }: ExperienceDetailP
                 >
                   <Image
                     src={url}
-                    alt={`${experience.company} photo ${i + 2}`}
+                    alt={`Dokumentasi ${experience.company} foto ${i + 2}`}
                     fill
                     unoptimized
                     className="object-cover"

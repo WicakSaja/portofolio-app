@@ -2,11 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import { SectionHeader } from '@/components/ui/section-header';
-import { CategoryFilter } from '@/components/portfolio/category-filter';
-import { FeaturedProject } from '@/components/portfolio/featured-project';
-import { PortfolioCard } from '@/components/portfolio/portfolio-card';
+import { CategoryFilter } from '@/components/projects/category-filter';
+import { FeaturedProject } from '@/components/projects/featured-project';
+import { ProjectCard } from '@/components/projects/project-card';
 
-interface PortfolioSectionProps {
+interface ProjectsSectionProps {
   projects: {
     id: string;
     title: string;
@@ -20,7 +20,7 @@ interface PortfolioSectionProps {
   }[];
 }
 
-export function PortfolioSection({ projects }: PortfolioSectionProps) {
+export function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const categories = useMemo(() => {
@@ -41,8 +41,8 @@ export function PortfolioSection({ projects }: PortfolioSectionProps) {
   const remainingProjects = filteredProjects.filter(p => p.id !== firstFeatured?.id);
 
   return (
-    <section id="portfolio" className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-6">
-      <SectionHeader label="04 — PORTFOLIO" title="Featured Projects" />
+    <section id="projects" className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-6">
+      <SectionHeader label="04 — PROJECTS" title="Featured Projects" />
       
       <div className="mt-8 mb-12">
         <CategoryFilter 
@@ -59,7 +59,7 @@ export function PortfolioSection({ projects }: PortfolioSectionProps) {
       {remainingProjects.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {remainingProjects.map(project => (
-            <PortfolioCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       )}
@@ -72,3 +72,5 @@ export function PortfolioSection({ projects }: PortfolioSectionProps) {
     </section>
   );
 }
+
+export const PortfolioSection = ProjectsSection;

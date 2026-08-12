@@ -3,11 +3,11 @@ import Image from "next/image";
 import { Plus, Edit, Globe, GitBranch } from "lucide-react";
 
 import { prisma } from "@/lib/db/prisma";
-import { PortfolioDeleteButton } from "@/components/admin/portfolio-delete-button";
+import { ProjectDeleteButton } from "@/components/admin/project-delete-button";
 
 export const dynamic = "force-dynamic";
 
-export default async function PortfolioAdminPage() {
+export default async function ProjectsAdminPage() {
   const projects = await prisma.portfolio.findMany({
     orderBy: {
       createdAt: "desc",
@@ -18,30 +18,30 @@ export default async function PortfolioAdminPage() {
     <div className="px-6 py-8 sm:px-8">
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight text-white">Portfolio Projects</h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-white">Projects</h2>
           <p className="mt-1 text-sm text-slate-300">
-            Manage your project entries shown on the public portfolio website.
+            Manage your project entries shown on the public website.
           </p>
         </div>
         <Link
-          href="/admin/portfolio/new"
+          href="/admin/projects/new"
           className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-200"
         >
           <Plus className="h-4 w-4" />
-          Create Portfolio
+          Create Project
         </Link>
       </div>
 
       {projects.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/10 bg-white/5 py-12 text-center">
-          <p className="text-base text-slate-400">No portfolio projects found.</p>
+          <p className="text-base text-slate-400">No projects found.</p>
           <p className="mt-1 text-sm text-slate-500">Get started by creating a new project entry.</p>
           <Link
-            href="/admin/portfolio/new"
+            href="/admin/projects/new"
             className="mt-4 inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-200"
           >
             <Plus className="h-4 w-4" />
-            Create Portfolio
+            Create Project
           </Link>
         </div>
       ) : (
@@ -145,13 +145,13 @@ export default async function PortfolioAdminPage() {
                       <td className="px-6 py-4 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Link
-                            href={`/admin/portfolio/${project.id}/edit`}
+                            href={`/admin/projects/${project.id}/edit`}
                             className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
                             title="Edit project"
                           >
                             <Edit className="h-4 w-4" />
                           </Link>
-                          <PortfolioDeleteButton id={project.id} />
+                          <ProjectDeleteButton id={project.id} />
                         </div>
                       </td>
                     </tr>

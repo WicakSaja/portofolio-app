@@ -56,7 +56,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
 
         <div className="flex flex-wrap items-center gap-4 mt-auto">
           <Link 
-            href={`/portfolio/${project.id}`}
+            href={`/projects/${project.id}`}
             className="inline-flex items-center justify-center gap-2 bg-[var(--color-text-primary)] text-[var(--color-surface)] px-6 py-3 rounded-lg font-medium hover:bg-[var(--color-primary)] hover:text-white transition-colors"
           >
             View Details

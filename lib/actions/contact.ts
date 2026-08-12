@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 
 import { prisma } from "@/lib/db/prisma";
 import { contactFormSchema } from "@/lib/validations/contact";
-import type { ActionState } from "@/types/portfolio";
+import type { ActionState } from "@/types/projects";
 
 export async function saveContact(formData: FormData): Promise<ActionState> {
   const values = {

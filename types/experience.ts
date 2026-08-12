@@ -1,9 +1,4 @@
-export type ExperienceFormValues = {
-  company: string;
-  position: string;
-  description: string;
-  startDate: string;
-  endDate?: string;
-  current?: boolean;
-  images: FileList | null;
-};
+import { z } from "zod";
+import { experienceFormSchema } from "@/lib/validations/experience";
+
+export type ExperienceFormValues = z.infer<typeof experienceFormSchema>;

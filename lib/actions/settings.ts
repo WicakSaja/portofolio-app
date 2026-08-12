@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db/prisma";
 import { settingsAssetsBucket, supabaseStorage } from "@/lib/storage/supabase";
 import { settingsUploadSchema } from "@/lib/validations/settings";
-import type { ActionState } from "@/types/portfolio";
+import type { ActionState } from "@/types/projects";
 
 export async function saveSettings(formData: FormData): Promise<ActionState> {
   const values = {
@@ -14,6 +14,24 @@ export async function saveSettings(formData: FormData): Promise<ActionState> {
     about: String(formData.get("about") ?? ""),
     avatar: formData.get("avatar") instanceof File ? formData.get("avatar") : null,
     resume: formData.get("resume") instanceof File ? formData.get("resume") : null,
+
+    seoTitle: String(formData.get("seoTitle") ?? ""),
+    seoDescription: String(formData.get("seoDescription") ?? ""),
+    seoCanonicalUrl: String(formData.get("seoCanonicalUrl") ?? ""),
+    seoOgTitle: String(formData.get("seoOgTitle") ?? ""),
+    seoOgDescription: String(formData.get("seoOgDescription") ?? ""),
+    seoOgImage: String(formData.get("seoOgImage") ?? ""),
+
+    authorName: String(formData.get("authorName") ?? ""),
+    authorAlternateName: String(formData.get("authorAlternateName") ?? ""),
+    authorJobTitle: String(formData.get("authorJobTitle") ?? ""),
+    authorDescription: String(formData.get("authorDescription") ?? ""),
+
+    googleSiteVerification: String(formData.get("googleSiteVerification") ?? ""),
+    bingSiteVerification: String(formData.get("bingSiteVerification") ?? ""),
+
+    robotsIndex: String(formData.get("robotsIndex") ?? "true") === "true",
+    robotsFollow: String(formData.get("robotsFollow") ?? "true") === "true",
   };
 
   const parsed = settingsUploadSchema.safeParse(values);
@@ -110,6 +128,24 @@ export async function saveSettings(formData: FormData): Promise<ActionState> {
       about: parsed.data.about,
       ...(avatarUrl !== undefined ? { avatar: avatarUrl } : {}),
       ...(resumeUrl !== undefined ? { resume: resumeUrl } : {}),
+
+      seoTitle: parsed.data.seoTitle || null,
+      seoDescription: parsed.data.seoDescription || null,
+      seoCanonicalUrl: parsed.data.seoCanonicalUrl || null,
+      seoOgTitle: parsed.data.seoOgTitle || null,
+      seoOgDescription: parsed.data.seoOgDescription || null,
+      seoOgImage: parsed.data.seoOgImage || null,
+
+      authorName: parsed.data.authorName || null,
+      authorAlternateName: parsed.data.authorAlternateName || null,
+      authorJobTitle: parsed.data.authorJobTitle || null,
+      authorDescription: parsed.data.authorDescription || null,
+
+      googleSiteVerification: parsed.data.googleSiteVerification || null,
+      bingSiteVerification: parsed.data.bingSiteVerification || null,
+
+      robotsIndex: parsed.data.robotsIndex,
+      robotsFollow: parsed.data.robotsFollow,
     };
 
     if (existing) {
@@ -123,6 +159,7 @@ export async function saveSettings(formData: FormData): Promise<ActionState> {
       });
     }
 
+    revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/settings");
 

@@ -8,17 +8,26 @@ datasource db {
 }
 
 model Portfolio {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  thumbnail   String?
-  images      String[]
-  github      String?
-  demo        String?
-  category    String
-  featured    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String   @id @default(cuid())
+  title            String
+  description      String
+  thumbnail        String?
+  images           String[]
+  github           String?
+  demo             String?
+  category         String
+  featured         Boolean  @default(false)
+  seoTitle         String?
+  seoDescription   String?
+  seoKeywords      String?
+  seoOgTitle       String?
+  seoOgDescription String?
+  seoOgImage       String?
+  seoCanonicalUrl  String?
+  seoIndex         Boolean  @default(true)
+  seoFollow        Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model Skill {
@@ -32,15 +41,24 @@ model Skill {
 }
 
 model Experience {
-  id          String    @id @default(cuid())
-  company     String
-  position    String
-  description String
-  startDate   DateTime
-  endDate     DateTime?
-  images      String[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id               String    @id @default(cuid())
+  company          String
+  position         String
+  description      String
+  startDate        DateTime
+  endDate          DateTime?
+  images           String[]
+  seoTitle         String?
+  seoDescription   String?
+  seoKeywords      String?
+  seoOgTitle       String?
+  seoOgDescription String?
+  seoOgImage       String?
+  seoCanonicalUrl  String?
+  seoIndex         Boolean   @default(true)
+  seoFollow        Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 model Contact {
@@ -54,12 +72,26 @@ model Contact {
 }
 
 model Settings {
-  id          String   @id @default(cuid())
-  heroTitle   String
-  heroSubtitle String
-  about       String
-  resume      String?
-  avatar      String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                     String   @id @default(cuid())
+  heroTitle              String
+  heroSubtitle           String
+  about                  String
+  resume                 String?
+  avatar                 String?
+  seoTitle               String?
+  seoDescription         String?
+  seoCanonicalUrl        String?
+  seoOgTitle             String?
+  seoOgDescription       String?
+  seoOgImage             String?
+  authorName             String?
+  authorAlternateName   String?
+  authorJobTitle         String?
+  authorDescription      String?
+  googleSiteVerification String?
+  bingSiteVerification   String?
+  robotsIndex            Boolean  @default(true)
+  robotsFollow           Boolean  @default(true)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 }

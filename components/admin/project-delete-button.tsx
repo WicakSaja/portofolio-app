@@ -4,19 +4,19 @@ import { useTransition } from "react";
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-import { deletePortfolio } from "@/lib/actions/portfolio";
+import { deleteProject } from "@/lib/actions/projects";
 
-interface PortfolioDeleteButtonProps {
+interface ProjectDeleteButtonProps {
   id: string;
 }
 
-export function PortfolioDeleteButton({ id }: PortfolioDeleteButtonProps) {
+export function ProjectDeleteButton({ id }: ProjectDeleteButtonProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this project?")) {
       startTransition(async () => {
-        const result = await deletePortfolio(id);
+        const result = await deleteProject(id);
         if (!result.success) {
           toast.error(result.message);
           return;
@@ -38,3 +38,5 @@ export function PortfolioDeleteButton({ id }: PortfolioDeleteButtonProps) {
     </button>
   );
 }
+
+export const PortfolioDeleteButton = ProjectDeleteButton;

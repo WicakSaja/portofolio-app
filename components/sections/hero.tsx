@@ -49,7 +49,7 @@ export function Hero({ settings }: HeroProps) {
               {subtitle}
             </p>
             <div className="hero-text hero-text-d4 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center lg:justify-start">
-              <LightBeamButton href="#portfolio">
+              <LightBeamButton href="#projects">
                 View My Work <ArrowRight className="w-4 h-4" />
               </LightBeamButton>
             </div>
