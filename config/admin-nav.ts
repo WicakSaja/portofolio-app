@@ -11,9 +11,9 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     href: "/admin",
   },
   {
-    title: "Portfolio",
-    description: "Manage portfolio project entries.",
-    href: "/admin/portfolio",
+    title: "Projects",
+    description: "Manage project entries.",
+    href: "/admin/projects",
   },
   {
     title: "Skills",

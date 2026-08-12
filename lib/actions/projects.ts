@@ -4,10 +4,10 @@ import { revalidatePath } from "next/cache";
 
 import { prisma } from "@/lib/db/prisma";
 import { portfolioThumbnailBucket, supabaseStorage } from "@/lib/storage/supabase";
-import { portfolioUploadSchema } from "@/lib/validations/portfolio";
-import type { ActionState } from "@/types/portfolio";
+import { projectUploadSchema } from "@/lib/validations/projects";
+import type { ActionState } from "@/types/projects";
 
-export async function createPortfolio(formData: FormData): Promise<ActionState> {
+export async function createProject(formData: FormData): Promise<ActionState> {
   const images = formData.getAll("images").filter((f) => f instanceof File && f.name !== "" && f.size > 0) as File[];
 
   const values = {
@@ -18,9 +18,19 @@ export async function createPortfolio(formData: FormData): Promise<ActionState> 
     demo: String(formData.get("demo") ?? ""),
     category: String(formData.get("category") ?? ""),
     featured: String(formData.get("featured") ?? "false") === "true",
+
+    seoTitle: String(formData.get("seoTitle") ?? ""),
+    seoDescription: String(formData.get("seoDescription") ?? ""),
+    seoKeywords: String(formData.get("seoKeywords") ?? ""),
+    seoOgTitle: String(formData.get("seoOgTitle") ?? ""),
+    seoOgDescription: String(formData.get("seoOgDescription") ?? ""),
+    seoOgImage: String(formData.get("seoOgImage") ?? ""),
+    seoCanonicalUrl: String(formData.get("seoCanonicalUrl") ?? ""),
+    seoIndex: String(formData.get("seoIndex") ?? "true") === "true",
+    seoFollow: String(formData.get("seoFollow") ?? "true") === "true",
   };
 
-  const parsed = portfolioUploadSchema.safeParse(values);
+  const parsed = projectUploadSchema.safeParse(values);
 
   if (!parsed.success) {
     return {
@@ -71,25 +81,36 @@ export async function createPortfolio(formData: FormData): Promise<ActionState> 
         demo: parsed.data.demo || null,
         category: parsed.data.category,
         featured: parsed.data.featured,
+
+        seoTitle: parsed.data.seoTitle || null,
+        seoDescription: parsed.data.seoDescription || null,
+        seoKeywords: parsed.data.seoKeywords || null,
+        seoOgTitle: parsed.data.seoOgTitle || null,
+        seoOgDescription: parsed.data.seoOgDescription || null,
+        seoOgImage: parsed.data.seoOgImage || null,
+        seoCanonicalUrl: parsed.data.seoCanonicalUrl || null,
+        seoIndex: parsed.data.seoIndex,
+        seoFollow: parsed.data.seoFollow,
       },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
-    revalidatePath("/admin/portfolio");
+    revalidatePath("/admin/projects");
 
     return {
       success: true,
-      message: "Portfolio created successfully",
+      message: "Project created successfully",
     };
   } catch {
     return {
       success: false,
-      message: "Failed to create portfolio",
+      message: "Failed to create project",
     };
   }
 }
 
-export async function updatePortfolio(id: string, formData: FormData): Promise<ActionState> {
+export async function updateProject(id: string, formData: FormData): Promise<ActionState> {
   const images = formData.getAll("images").filter((f) => f instanceof File && f.name !== "" && f.size > 0) as File[];
   const retainedImages = formData.getAll("retainedImages").map(String);
 
@@ -101,9 +122,19 @@ export async function updatePortfolio(id: string, formData: FormData): Promise<A
     demo: String(formData.get("demo") ?? ""),
     category: String(formData.get("category") ?? ""),
     featured: String(formData.get("featured") ?? "false") === "true",
+
+    seoTitle: String(formData.get("seoTitle") ?? ""),
+    seoDescription: String(formData.get("seoDescription") ?? ""),
+    seoKeywords: String(formData.get("seoKeywords") ?? ""),
+    seoOgTitle: String(formData.get("seoOgTitle") ?? ""),
+    seoOgDescription: String(formData.get("seoOgDescription") ?? ""),
+    seoOgImage: String(formData.get("seoOgImage") ?? ""),
+    seoCanonicalUrl: String(formData.get("seoCanonicalUrl") ?? ""),
+    seoIndex: String(formData.get("seoIndex") ?? "true") === "true",
+    seoFollow: String(formData.get("seoFollow") ?? "true") === "true",
   };
 
-  const parsed = portfolioUploadSchema.safeParse(values);
+  const parsed = projectUploadSchema.safeParse(values);
 
   if (!parsed.success) {
     return {
@@ -120,7 +151,7 @@ export async function updatePortfolio(id: string, formData: FormData): Promise<A
     if (!existing) {
       return {
         success: false,
-        message: "Portfolio project not found",
+        message: "Project not found",
       };
     }
 
@@ -183,25 +214,37 @@ export async function updatePortfolio(id: string, formData: FormData): Promise<A
         demo: parsed.data.demo || null,
         category: parsed.data.category,
         featured: parsed.data.featured,
+
+        seoTitle: parsed.data.seoTitle || null,
+        seoDescription: parsed.data.seoDescription || null,
+        seoKeywords: parsed.data.seoKeywords || null,
+        seoOgTitle: parsed.data.seoOgTitle || null,
+        seoOgDescription: parsed.data.seoOgDescription || null,
+        seoOgImage: parsed.data.seoOgImage || null,
+        seoCanonicalUrl: parsed.data.seoCanonicalUrl || null,
+        seoIndex: parsed.data.seoIndex,
+        seoFollow: parsed.data.seoFollow,
       },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
-    revalidatePath("/admin/portfolio");
+    revalidatePath("/admin/projects");
+    revalidatePath(`/projects/${id}`);
 
     return {
       success: true,
-      message: "Portfolio updated successfully",
+      message: "Project updated successfully",
     };
   } catch {
     return {
       success: false,
-      message: "Failed to update portfolio",
+      message: "Failed to update project",
     };
   }
 }
 
-export async function deletePortfolio(id: string): Promise<ActionState> {
+export async function deleteProject(id: string): Promise<ActionState> {
   try {
     const existing = await prisma.portfolio.findUnique({
       where: { id },
@@ -210,7 +253,7 @@ export async function deletePortfolio(id: string): Promise<ActionState> {
     if (!existing) {
       return {
         success: false,
-        message: "Portfolio project not found",
+        message: "Project not found",
       };
     }
 
@@ -232,17 +275,22 @@ export async function deletePortfolio(id: string): Promise<ActionState> {
       where: { id },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
-    revalidatePath("/admin/portfolio");
+    revalidatePath("/admin/projects");
 
     return {
       success: true,
-      message: "Portfolio deleted successfully",
+      message: "Project deleted successfully",
     };
   } catch {
     return {
       success: false,
-      message: "Failed to delete portfolio",
+      message: "Failed to delete project",
     };
   }
 }
+
+export const createPortfolio = createProject;
+export const updatePortfolio = updateProject;
+export const deletePortfolio = deleteProject;

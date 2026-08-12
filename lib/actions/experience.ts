@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db/prisma";
 import { experienceImagesBucket, supabaseStorage } from "@/lib/storage/supabase";
 import { experienceUploadSchema } from "@/lib/validations/experience";
-import type { ActionState } from "@/types/portfolio";
+import type { ActionState } from "@/types/projects";
 
 export async function createExperience(formData: FormData): Promise<ActionState> {
   const images = formData.getAll("images").filter((f) => f instanceof File && f.name !== "" && f.size > 0) as File[];
@@ -18,6 +18,16 @@ export async function createExperience(formData: FormData): Promise<ActionState>
     endDate: String(formData.get("endDate") ?? ""),
     current: String(formData.get("current") ?? "false") === "true",
     images,
+
+    seoTitle: String(formData.get("seoTitle") ?? ""),
+    seoDescription: String(formData.get("seoDescription") ?? ""),
+    seoKeywords: String(formData.get("seoKeywords") ?? ""),
+    seoOgTitle: String(formData.get("seoOgTitle") ?? ""),
+    seoOgDescription: String(formData.get("seoOgDescription") ?? ""),
+    seoOgImage: String(formData.get("seoOgImage") ?? ""),
+    seoCanonicalUrl: String(formData.get("seoCanonicalUrl") ?? ""),
+    seoIndex: String(formData.get("seoIndex") ?? "true") === "true",
+    seoFollow: String(formData.get("seoFollow") ?? "true") === "true",
   };
 
   const parsed = experienceUploadSchema.safeParse(values);
@@ -62,9 +72,20 @@ export async function createExperience(formData: FormData): Promise<ActionState>
         startDate: new Date(parsed.data.startDate),
         endDate: parsed.data.current || !parsed.data.endDate ? null : new Date(parsed.data.endDate),
         images: imageUrls,
+
+        seoTitle: parsed.data.seoTitle || null,
+        seoDescription: parsed.data.seoDescription || null,
+        seoKeywords: parsed.data.seoKeywords || null,
+        seoOgTitle: parsed.data.seoOgTitle || null,
+        seoOgDescription: parsed.data.seoOgDescription || null,
+        seoOgImage: parsed.data.seoOgImage || null,
+        seoCanonicalUrl: parsed.data.seoCanonicalUrl || null,
+        seoIndex: parsed.data.seoIndex,
+        seoFollow: parsed.data.seoFollow,
       },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/experience");
 
@@ -92,6 +113,16 @@ export async function updateExperience(id: string, formData: FormData): Promise<
     endDate: String(formData.get("endDate") ?? ""),
     current: String(formData.get("current") ?? "false") === "true",
     images,
+
+    seoTitle: String(formData.get("seoTitle") ?? ""),
+    seoDescription: String(formData.get("seoDescription") ?? ""),
+    seoKeywords: String(formData.get("seoKeywords") ?? ""),
+    seoOgTitle: String(formData.get("seoOgTitle") ?? ""),
+    seoOgDescription: String(formData.get("seoOgDescription") ?? ""),
+    seoOgImage: String(formData.get("seoOgImage") ?? ""),
+    seoCanonicalUrl: String(formData.get("seoCanonicalUrl") ?? ""),
+    seoIndex: String(formData.get("seoIndex") ?? "true") === "true",
+    seoFollow: String(formData.get("seoFollow") ?? "true") === "true",
   };
 
   const parsed = experienceUploadSchema.safeParse(values);
@@ -162,11 +193,23 @@ export async function updateExperience(id: string, formData: FormData): Promise<
         startDate: new Date(parsed.data.startDate),
         endDate: parsed.data.current || !parsed.data.endDate ? null : new Date(parsed.data.endDate),
         images: updatedImages,
+
+        seoTitle: parsed.data.seoTitle || null,
+        seoDescription: parsed.data.seoDescription || null,
+        seoKeywords: parsed.data.seoKeywords || null,
+        seoOgTitle: parsed.data.seoOgTitle || null,
+        seoOgDescription: parsed.data.seoOgDescription || null,
+        seoOgImage: parsed.data.seoOgImage || null,
+        seoCanonicalUrl: parsed.data.seoCanonicalUrl || null,
+        seoIndex: parsed.data.seoIndex,
+        seoFollow: parsed.data.seoFollow,
       },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/experience");
+    revalidatePath(`/experience/${id}`);
 
     return {
       success: true,
@@ -209,6 +252,7 @@ export async function deleteExperience(id: string): Promise<ActionState> {
       where: { id },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/experience");
 

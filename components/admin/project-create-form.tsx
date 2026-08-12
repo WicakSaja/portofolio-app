@@ -6,70 +6,54 @@ import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
 
-import { updatePortfolio } from "@/lib/actions/portfolio";
-import { portfolioFormSchema } from "@/lib/validations/portfolio";
-import type { PortfolioFormValues } from "@/types/portfolio";
-
-interface Portfolio {
-  id: string;
-  title: string;
-  description: string;
-  images: string[];
-  thumbnail?: string | null;
-  github: string | null;
-  demo: string | null;
-  category: string;
-  featured: boolean;
-}
-
-interface PortfolioEditFormProps {
-  portfolio: Portfolio;
-}
+import { createProject } from "@/lib/actions/projects";
+import { projectFormSchema } from "@/lib/validations/projects";
+import type { ProjectFormValues } from "@/types/projects";
+import { SeoFields } from "./seo-fields";
 
 const inputClassName =
   "mt-2 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-slate-500 focus:border-white/35";
 
-export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
+export function ProjectCreateForm() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-
-  const initialImages =
-    portfolio.images && portfolio.images.length > 0
-      ? portfolio.images
-      : portfolio.thumbnail
-        ? [portfolio.thumbnail]
-        : [];
-
-  const [retainedImages, setRetainedImages] = useState<string[]>(initialImages);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
-  const form = useForm<PortfolioFormValues>({
-    resolver: zodResolver(portfolioFormSchema),
+  const form = useForm<ProjectFormValues>({
+    resolver: zodResolver(projectFormSchema),
     defaultValues: {
-      title: portfolio.title,
-      description: portfolio.description,
+      title: "",
+      description: "",
       images: null,
-      github: portfolio.github ?? "",
-      demo: portfolio.demo ?? "",
-      category: portfolio.category,
-      featured: portfolio.featured,
+      github: "",
+      demo: "",
+      category: "",
+      featured: false,
+
+      seoTitle: "",
+      seoDescription: "",
+      seoKeywords: "",
+      seoOgTitle: "",
+      seoOgDescription: "",
+      seoOgImage: "",
+      seoCanonicalUrl: "",
+      seoIndex: true,
+      seoFollow: true,
     },
   });
 
-  const onSubmit = (values: PortfolioFormValues) => {
+  const onSubmit = (values: ProjectFormValues) => {
     const selectedFiles = values.images;
-    const newFilesCount = selectedFiles ? selectedFiles.length : 0;
-    const totalCount = retainedImages.length + newFilesCount;
+    const fileCount = selectedFiles ? selectedFiles.length : 0;
 
-    if (totalCount === 0) {
-      toast.error("Please provide at least 1 image for the project.");
+    if (fileCount === 0) {
+      toast.error("Please upload at least 1 image for the project.");
       return;
     }
 
-    if (totalCount > 10) {
-      toast.error("Maximum 10 project images are allowed in total.");
+    if (fileCount > 10) {
+      toast.error("Maximum 10 project images are allowed.");
       return;
     }
 
@@ -83,9 +67,15 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
       formData.append("category", values.category);
       formData.append("featured", String(values.featured));
 
-      retainedImages.forEach((url) => {
-        formData.append("retainedImages", url);
-      });
+      formData.append("seoTitle", values.seoTitle ?? "");
+      formData.append("seoDescription", values.seoDescription ?? "");
+      formData.append("seoKeywords", values.seoKeywords ?? "");
+      formData.append("seoOgTitle", values.seoOgTitle ?? "");
+      formData.append("seoOgDescription", values.seoOgDescription ?? "");
+      formData.append("seoOgImage", values.seoOgImage ?? "");
+      formData.append("seoCanonicalUrl", values.seoCanonicalUrl ?? "");
+      formData.append("seoIndex", String(values.seoIndex));
+      formData.append("seoFollow", String(values.seoFollow));
 
       if (selectedFiles) {
         for (let i = 0; i < selectedFiles.length; i++) {
@@ -93,7 +83,7 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
         }
       }
 
-      const result = await updatePortfolio(portfolio.id, formData);
+      const result = await createProject(formData);
 
       if (!result.success) {
         toast.error(result.message);
@@ -101,7 +91,8 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
       }
 
       toast.success(result.message);
-      router.push("/admin/portfolio");
+      form.reset();
+      router.push("/admin/projects");
       router.refresh();
     });
   };
@@ -119,10 +110,6 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
     } else {
       setPreviewUrls([]);
     }
-  };
-
-  const handleRemoveRetainedImage = (urlToRemove: string) => {
-    setRetainedImages((prev) => prev.filter((url) => url !== urlToRemove));
   };
 
   return (
@@ -162,7 +149,7 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
             <input
               type="checkbox"
               {...form.register("featured")}
-              className="h-4 w-4 rounded border-white/20 bg-white/5 text-slate-900 focus:ring-0 focus:ring-offset-0"
+              className="h-4 w-4 rounded border-white/20 bg-white/5"
             />
             Featured project
           </label>
@@ -171,7 +158,7 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
 
       <div>
         <label htmlFor="images" className="text-sm text-slate-200">
-          Project Images <span className="text-slate-400">(upload up to 10 images total)</span>
+          Project Images <span className="text-slate-400">(upload 1 to 10 images)</span>
         </label>
         <input
           id="images"
@@ -183,37 +170,9 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
         />
         <p className="mt-1 text-xs text-rose-300">{form.formState.errors.images?.message}</p>
 
-        {/* Existing Images Gallery */}
-        {retainedImages.length > 0 && (
-          <div className="mt-4">
-            <p className="text-xs text-slate-400">Current Project Images:</p>
-            <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-5">
-              {retainedImages.map((url) => (
-                <div key={url} className="group relative aspect-video overflow-hidden rounded-lg border border-white/10 bg-slate-900">
-                  <Image
-                    src={url}
-                    alt="Gallery item"
-                    fill
-                    unoptimized
-                    className="object-cover"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveRetainedImage(url)}
-                    className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <Trash2 className="h-5 w-5 text-red-400" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* New Image Previews */}
         {previewUrls.length > 0 && (
           <div className="mt-4">
-            <p className="text-xs text-slate-400">New Image Previews ({previewUrls.length}):</p>
+            <p className="text-xs text-slate-400">Selected Image Previews ({previewUrls.length}):</p>
             <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-5">
               {previewUrls.map((url, i) => (
                 <div key={i} className="relative aspect-video overflow-hidden rounded-lg border border-white/20 bg-slate-900">
@@ -249,23 +208,20 @@ export function PortfolioEditForm({ portfolio }: PortfolioEditFormProps) {
         </div>
       </div>
 
-      <div className="flex items-center gap-3 pt-2">
+      {/* SEO SECTION */}
+      <SeoFields form={form} pathPrefix="/projects/" />
+
+      <div className="pt-4">
         <button
           type="submit"
           disabled={isPending}
           className="inline-flex h-11 items-center justify-center rounded-xl bg-white px-5 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isPending ? "Saving..." : "Save Changes"}
-        </button>
-        <button
-          type="button"
-          onClick={() => router.push("/admin/portfolio")}
-          disabled={isPending}
-          className="inline-flex h-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 text-sm font-medium text-slate-200 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          Cancel
+          {isPending ? "Saving..." : "Create Project"}
         </button>
       </div>
     </form>
   );
 }
+
+export const PortfolioCreateForm = ProjectCreateForm;

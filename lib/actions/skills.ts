@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db/prisma";
 import { skillIconBucket, supabaseStorage } from "@/lib/storage/supabase";
 import { skillUploadSchema } from "@/lib/validations/skills";
-import type { ActionState } from "@/types/portfolio";
+import type { ActionState } from "@/types/projects";
 
 export async function createSkill(formData: FormData): Promise<ActionState> {
   const values = {

@@ -33,6 +33,15 @@ export type PortfolioMinAggregateOutputType = {
   demo: string | null
   category: string | null
   featured: boolean | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoKeywords: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  seoCanonicalUrl: string | null
+  seoIndex: boolean | null
+  seoFollow: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +55,15 @@ export type PortfolioMaxAggregateOutputType = {
   demo: string | null
   category: string | null
   featured: boolean | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoKeywords: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  seoCanonicalUrl: string | null
+  seoIndex: boolean | null
+  seoFollow: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,6 +78,15 @@ export type PortfolioCountAggregateOutputType = {
   demo: number
   category: number
   featured: number
+  seoTitle: number
+  seoDescription: number
+  seoKeywords: number
+  seoOgTitle: number
+  seoOgDescription: number
+  seoOgImage: number
+  seoCanonicalUrl: number
+  seoIndex: number
+  seoFollow: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -75,6 +102,15 @@ export type PortfolioMinAggregateInputType = {
   demo?: true
   category?: true
   featured?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoKeywords?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  seoCanonicalUrl?: true
+  seoIndex?: true
+  seoFollow?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +124,15 @@ export type PortfolioMaxAggregateInputType = {
   demo?: true
   category?: true
   featured?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoKeywords?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  seoCanonicalUrl?: true
+  seoIndex?: true
+  seoFollow?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -102,6 +147,15 @@ export type PortfolioCountAggregateInputType = {
   demo?: true
   category?: true
   featured?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoKeywords?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  seoCanonicalUrl?: true
+  seoIndex?: true
+  seoFollow?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -189,6 +243,15 @@ export type PortfolioGroupByOutputType = {
   demo: string | null
   category: string
   featured: boolean
+  seoTitle: string | null
+  seoDescription: string | null
+  seoKeywords: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  seoCanonicalUrl: string | null
+  seoIndex: boolean
+  seoFollow: boolean
   createdAt: Date
   updatedAt: Date
   _count: PortfolioCountAggregateOutputType | null
@@ -224,6 +287,15 @@ export type PortfolioWhereInput = {
   demo?: Prisma.StringNullableFilter<"Portfolio"> | string | null
   category?: Prisma.StringFilter<"Portfolio"> | string
   featured?: Prisma.BoolFilter<"Portfolio"> | boolean
+  seoTitle?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoKeywords?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoOgTitle?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoOgDescription?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoOgImage?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoIndex?: Prisma.BoolFilter<"Portfolio"> | boolean
+  seoFollow?: Prisma.BoolFilter<"Portfolio"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Portfolio"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Portfolio"> | Date | string
 }
@@ -238,6 +310,15 @@ export type PortfolioOrderByWithRelationInput = {
   demo?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -255,6 +336,15 @@ export type PortfolioWhereUniqueInput = Prisma.AtLeast<{
   demo?: Prisma.StringNullableFilter<"Portfolio"> | string | null
   category?: Prisma.StringFilter<"Portfolio"> | string
   featured?: Prisma.BoolFilter<"Portfolio"> | boolean
+  seoTitle?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoKeywords?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoOgTitle?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoOgDescription?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoOgImage?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableFilter<"Portfolio"> | string | null
+  seoIndex?: Prisma.BoolFilter<"Portfolio"> | boolean
+  seoFollow?: Prisma.BoolFilter<"Portfolio"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Portfolio"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Portfolio"> | Date | string
 }, "id">
@@ -269,6 +359,15 @@ export type PortfolioOrderByWithAggregationInput = {
   demo?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PortfolioCountOrderByAggregateInput
@@ -289,6 +388,15 @@ export type PortfolioScalarWhereWithAggregatesInput = {
   demo?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
   category?: Prisma.StringWithAggregatesFilter<"Portfolio"> | string
   featured?: Prisma.BoolWithAggregatesFilter<"Portfolio"> | boolean
+  seoTitle?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+  seoDescription?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+  seoKeywords?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+  seoOgTitle?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+  seoOgDescription?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+  seoOgImage?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+  seoIndex?: Prisma.BoolWithAggregatesFilter<"Portfolio"> | boolean
+  seoFollow?: Prisma.BoolWithAggregatesFilter<"Portfolio"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Portfolio"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Portfolio"> | Date | string
 }
@@ -303,6 +411,15 @@ export type PortfolioCreateInput = {
   demo?: string | null
   category: string
   featured?: boolean
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoKeywords?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  seoCanonicalUrl?: string | null
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -317,6 +434,15 @@ export type PortfolioUncheckedCreateInput = {
   demo?: string | null
   category: string
   featured?: boolean
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoKeywords?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  seoCanonicalUrl?: string | null
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -331,6 +457,15 @@ export type PortfolioUpdateInput = {
   demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -345,6 +480,15 @@ export type PortfolioUncheckedUpdateInput = {
   demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -359,6 +503,15 @@ export type PortfolioCreateManyInput = {
   demo?: string | null
   category: string
   featured?: boolean
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoKeywords?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  seoCanonicalUrl?: string | null
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -373,6 +526,15 @@ export type PortfolioUpdateManyMutationInput = {
   demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -387,6 +549,15 @@ export type PortfolioUncheckedUpdateManyInput = {
   demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -409,6 +580,15 @@ export type PortfolioCountOrderByAggregateInput = {
   demo?: Prisma.SortOrder
   category?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -422,6 +602,15 @@ export type PortfolioMaxOrderByAggregateInput = {
   demo?: Prisma.SortOrder
   category?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -435,6 +624,15 @@ export type PortfolioMinOrderByAggregateInput = {
   demo?: Prisma.SortOrder
   category?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -476,6 +674,15 @@ export type PortfolioSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   demo?: boolean
   category?: boolean
   featured?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoKeywords?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  seoCanonicalUrl?: boolean
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["portfolio"]>
@@ -490,6 +697,15 @@ export type PortfolioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   demo?: boolean
   category?: boolean
   featured?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoKeywords?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  seoCanonicalUrl?: boolean
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["portfolio"]>
@@ -504,6 +720,15 @@ export type PortfolioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   demo?: boolean
   category?: boolean
   featured?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoKeywords?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  seoCanonicalUrl?: boolean
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["portfolio"]>
@@ -518,11 +743,20 @@ export type PortfolioSelectScalar = {
   demo?: boolean
   category?: boolean
   featured?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoKeywords?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  seoCanonicalUrl?: boolean
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PortfolioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "thumbnail" | "images" | "github" | "demo" | "category" | "featured" | "createdAt" | "updatedAt", ExtArgs["result"]["portfolio"]>
+export type PortfolioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "thumbnail" | "images" | "github" | "demo" | "category" | "featured" | "seoTitle" | "seoDescription" | "seoKeywords" | "seoOgTitle" | "seoOgDescription" | "seoOgImage" | "seoCanonicalUrl" | "seoIndex" | "seoFollow" | "createdAt" | "updatedAt", ExtArgs["result"]["portfolio"]>
 
 export type $PortfolioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Portfolio"
@@ -537,6 +771,15 @@ export type $PortfolioPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     demo: string | null
     category: string
     featured: boolean
+    seoTitle: string | null
+    seoDescription: string | null
+    seoKeywords: string | null
+    seoOgTitle: string | null
+    seoOgDescription: string | null
+    seoOgImage: string | null
+    seoCanonicalUrl: string | null
+    seoIndex: boolean
+    seoFollow: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["portfolio"]>
@@ -971,6 +1214,15 @@ export interface PortfolioFieldRefs {
   readonly demo: Prisma.FieldRef<"Portfolio", 'String'>
   readonly category: Prisma.FieldRef<"Portfolio", 'String'>
   readonly featured: Prisma.FieldRef<"Portfolio", 'Boolean'>
+  readonly seoTitle: Prisma.FieldRef<"Portfolio", 'String'>
+  readonly seoDescription: Prisma.FieldRef<"Portfolio", 'String'>
+  readonly seoKeywords: Prisma.FieldRef<"Portfolio", 'String'>
+  readonly seoOgTitle: Prisma.FieldRef<"Portfolio", 'String'>
+  readonly seoOgDescription: Prisma.FieldRef<"Portfolio", 'String'>
+  readonly seoOgImage: Prisma.FieldRef<"Portfolio", 'String'>
+  readonly seoCanonicalUrl: Prisma.FieldRef<"Portfolio", 'String'>
+  readonly seoIndex: Prisma.FieldRef<"Portfolio", 'Boolean'>
+  readonly seoFollow: Prisma.FieldRef<"Portfolio", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Portfolio", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Portfolio", 'DateTime'>
 }

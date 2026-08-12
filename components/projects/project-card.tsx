@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface PortfolioCardProps {
+interface ProjectCardProps {
   project: {
     id: string;
     title: string;
@@ -14,12 +14,12 @@ interface PortfolioCardProps {
   };
 }
 
-export function PortfolioCard({ project }: PortfolioCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   const coverImage = project.thumbnail || (project.images && project.images.length > 0 ? project.images[0] : null);
 
   return (
     <div className="group relative bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl overflow-hidden hover:shadow-lg hover:border-[var(--color-primary)] transition-all duration-300 flex flex-col h-full">
-      <Link href={`/portfolio/${project.id}`} className="absolute inset-0 z-10">
+      <Link href={`/projects/${project.id}`} className="absolute inset-0 z-10">
         <span className="sr-only">View {project.title} details</span>
       </Link>
       
@@ -55,3 +55,5 @@ export function PortfolioCard({ project }: PortfolioCardProps) {
     </div>
   );
 }
+
+export const PortfolioCard = ProjectCard;

@@ -31,6 +31,15 @@ export type ExperienceMinAggregateOutputType = {
   description: string | null
   startDate: Date | null
   endDate: Date | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoKeywords: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  seoCanonicalUrl: string | null
+  seoIndex: boolean | null
+  seoFollow: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -42,6 +51,15 @@ export type ExperienceMaxAggregateOutputType = {
   description: string | null
   startDate: Date | null
   endDate: Date | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoKeywords: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  seoCanonicalUrl: string | null
+  seoIndex: boolean | null
+  seoFollow: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +72,15 @@ export type ExperienceCountAggregateOutputType = {
   startDate: number
   endDate: number
   images: number
+  seoTitle: number
+  seoDescription: number
+  seoKeywords: number
+  seoOgTitle: number
+  seoOgDescription: number
+  seoOgImage: number
+  seoCanonicalUrl: number
+  seoIndex: number
+  seoFollow: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -67,6 +94,15 @@ export type ExperienceMinAggregateInputType = {
   description?: true
   startDate?: true
   endDate?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoKeywords?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  seoCanonicalUrl?: true
+  seoIndex?: true
+  seoFollow?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -78,6 +114,15 @@ export type ExperienceMaxAggregateInputType = {
   description?: true
   startDate?: true
   endDate?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoKeywords?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  seoCanonicalUrl?: true
+  seoIndex?: true
+  seoFollow?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -90,6 +135,15 @@ export type ExperienceCountAggregateInputType = {
   startDate?: true
   endDate?: true
   images?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoKeywords?: true
+  seoOgTitle?: true
+  seoOgDescription?: true
+  seoOgImage?: true
+  seoCanonicalUrl?: true
+  seoIndex?: true
+  seoFollow?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -175,6 +229,15 @@ export type ExperienceGroupByOutputType = {
   startDate: Date
   endDate: Date | null
   images: string[]
+  seoTitle: string | null
+  seoDescription: string | null
+  seoKeywords: string | null
+  seoOgTitle: string | null
+  seoOgDescription: string | null
+  seoOgImage: string | null
+  seoCanonicalUrl: string | null
+  seoIndex: boolean
+  seoFollow: boolean
   createdAt: Date
   updatedAt: Date
   _count: ExperienceCountAggregateOutputType | null
@@ -208,6 +271,15 @@ export type ExperienceWhereInput = {
   startDate?: Prisma.DateTimeFilter<"Experience"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"Experience"> | Date | string | null
   images?: Prisma.StringNullableListFilter<"Experience">
+  seoTitle?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoKeywords?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoOgTitle?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoOgDescription?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoOgImage?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoIndex?: Prisma.BoolFilter<"Experience"> | boolean
+  seoFollow?: Prisma.BoolFilter<"Experience"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Experience"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Experience"> | Date | string
 }
@@ -220,6 +292,15 @@ export type ExperienceOrderByWithRelationInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   images?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -235,6 +316,15 @@ export type ExperienceWhereUniqueInput = Prisma.AtLeast<{
   startDate?: Prisma.DateTimeFilter<"Experience"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"Experience"> | Date | string | null
   images?: Prisma.StringNullableListFilter<"Experience">
+  seoTitle?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoKeywords?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoOgTitle?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoOgDescription?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoOgImage?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableFilter<"Experience"> | string | null
+  seoIndex?: Prisma.BoolFilter<"Experience"> | boolean
+  seoFollow?: Prisma.BoolFilter<"Experience"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Experience"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Experience"> | Date | string
 }, "id">
@@ -247,6 +337,15 @@ export type ExperienceOrderByWithAggregationInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   images?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ExperienceCountOrderByAggregateInput
@@ -265,6 +364,15 @@ export type ExperienceScalarWhereWithAggregatesInput = {
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Experience"> | Date | string
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Experience"> | Date | string | null
   images?: Prisma.StringNullableListFilter<"Experience">
+  seoTitle?: Prisma.StringNullableWithAggregatesFilter<"Experience"> | string | null
+  seoDescription?: Prisma.StringNullableWithAggregatesFilter<"Experience"> | string | null
+  seoKeywords?: Prisma.StringNullableWithAggregatesFilter<"Experience"> | string | null
+  seoOgTitle?: Prisma.StringNullableWithAggregatesFilter<"Experience"> | string | null
+  seoOgDescription?: Prisma.StringNullableWithAggregatesFilter<"Experience"> | string | null
+  seoOgImage?: Prisma.StringNullableWithAggregatesFilter<"Experience"> | string | null
+  seoCanonicalUrl?: Prisma.StringNullableWithAggregatesFilter<"Experience"> | string | null
+  seoIndex?: Prisma.BoolWithAggregatesFilter<"Experience"> | boolean
+  seoFollow?: Prisma.BoolWithAggregatesFilter<"Experience"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Experience"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Experience"> | Date | string
 }
@@ -277,6 +385,15 @@ export type ExperienceCreateInput = {
   startDate: Date | string
   endDate?: Date | string | null
   images?: Prisma.ExperienceCreateimagesInput | string[]
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoKeywords?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  seoCanonicalUrl?: string | null
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -289,6 +406,15 @@ export type ExperienceUncheckedCreateInput = {
   startDate: Date | string
   endDate?: Date | string | null
   images?: Prisma.ExperienceCreateimagesInput | string[]
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoKeywords?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  seoCanonicalUrl?: string | null
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -301,6 +427,15 @@ export type ExperienceUpdateInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   images?: Prisma.ExperienceUpdateimagesInput | string[]
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -313,6 +448,15 @@ export type ExperienceUncheckedUpdateInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   images?: Prisma.ExperienceUpdateimagesInput | string[]
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -325,6 +469,15 @@ export type ExperienceCreateManyInput = {
   startDate: Date | string
   endDate?: Date | string | null
   images?: Prisma.ExperienceCreateimagesInput | string[]
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoKeywords?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  seoCanonicalUrl?: string | null
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -337,6 +490,15 @@ export type ExperienceUpdateManyMutationInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   images?: Prisma.ExperienceUpdateimagesInput | string[]
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -349,6 +511,15 @@ export type ExperienceUncheckedUpdateManyInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   images?: Prisma.ExperienceUpdateimagesInput | string[]
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -361,6 +532,15 @@ export type ExperienceCountOrderByAggregateInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   images?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -372,6 +552,15 @@ export type ExperienceMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -383,6 +572,15 @@ export type ExperienceMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoKeywords?: Prisma.SortOrder
+  seoOgTitle?: Prisma.SortOrder
+  seoOgDescription?: Prisma.SortOrder
+  seoOgImage?: Prisma.SortOrder
+  seoCanonicalUrl?: Prisma.SortOrder
+  seoIndex?: Prisma.SortOrder
+  seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -410,6 +608,15 @@ export type ExperienceSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   startDate?: boolean
   endDate?: boolean
   images?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoKeywords?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  seoCanonicalUrl?: boolean
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["experience"]>
@@ -422,6 +629,15 @@ export type ExperienceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   startDate?: boolean
   endDate?: boolean
   images?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoKeywords?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  seoCanonicalUrl?: boolean
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["experience"]>
@@ -434,6 +650,15 @@ export type ExperienceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   startDate?: boolean
   endDate?: boolean
   images?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoKeywords?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  seoCanonicalUrl?: boolean
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["experience"]>
@@ -446,11 +671,20 @@ export type ExperienceSelectScalar = {
   startDate?: boolean
   endDate?: boolean
   images?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoKeywords?: boolean
+  seoOgTitle?: boolean
+  seoOgDescription?: boolean
+  seoOgImage?: boolean
+  seoCanonicalUrl?: boolean
+  seoIndex?: boolean
+  seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ExperienceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "company" | "position" | "description" | "startDate" | "endDate" | "images" | "createdAt" | "updatedAt", ExtArgs["result"]["experience"]>
+export type ExperienceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "company" | "position" | "description" | "startDate" | "endDate" | "images" | "seoTitle" | "seoDescription" | "seoKeywords" | "seoOgTitle" | "seoOgDescription" | "seoOgImage" | "seoCanonicalUrl" | "seoIndex" | "seoFollow" | "createdAt" | "updatedAt", ExtArgs["result"]["experience"]>
 
 export type $ExperiencePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Experience"
@@ -463,6 +697,15 @@ export type $ExperiencePayload<ExtArgs extends runtime.Types.Extensions.Internal
     startDate: Date
     endDate: Date | null
     images: string[]
+    seoTitle: string | null
+    seoDescription: string | null
+    seoKeywords: string | null
+    seoOgTitle: string | null
+    seoOgDescription: string | null
+    seoOgImage: string | null
+    seoCanonicalUrl: string | null
+    seoIndex: boolean
+    seoFollow: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["experience"]>
@@ -895,6 +1138,15 @@ export interface ExperienceFieldRefs {
   readonly startDate: Prisma.FieldRef<"Experience", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Experience", 'DateTime'>
   readonly images: Prisma.FieldRef<"Experience", 'String[]'>
+  readonly seoTitle: Prisma.FieldRef<"Experience", 'String'>
+  readonly seoDescription: Prisma.FieldRef<"Experience", 'String'>
+  readonly seoKeywords: Prisma.FieldRef<"Experience", 'String'>
+  readonly seoOgTitle: Prisma.FieldRef<"Experience", 'String'>
+  readonly seoOgDescription: Prisma.FieldRef<"Experience", 'String'>
+  readonly seoOgImage: Prisma.FieldRef<"Experience", 'String'>
+  readonly seoCanonicalUrl: Prisma.FieldRef<"Experience", 'String'>
+  readonly seoIndex: Prisma.FieldRef<"Experience", 'Boolean'>
+  readonly seoFollow: Prisma.FieldRef<"Experience", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Experience", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Experience", 'DateTime'>
 }
