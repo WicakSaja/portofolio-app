@@ -6,7 +6,16 @@ import { ProjectCreateForm } from "@/components/admin/project-create-form";
 export const dynamic = "force-dynamic";
 
 export default async function NewProjectPage() {
-  const allSkills = await prisma.skill.findMany({ orderBy: { category: "asc" }, select: { id: true, name: true, category: true } });
+  const rawSkills = await prisma.skill.findMany({
+    orderBy: { name: "asc" },
+    select: { id: true, name: true, category: true, categories: true },
+  });
+
+  const allSkills = rawSkills.map((s) => ({
+    id: s.id,
+    name: s.name,
+    category: s.categories?.[0] ?? s.category ?? "General",
+  }));
 
   return (
     <div className="px-6 py-8 sm:px-8">

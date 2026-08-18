@@ -11,7 +11,8 @@ interface Skill {
   id: string;
   name: string;
   icon: string | null;
-  category: string;
+  category?: string;
+  categories?: string[];
   level: number;
 }
 
@@ -35,15 +36,24 @@ function getLevelLabel(level: number): string {
 
 export function Skills({ skills = [] }: SkillsProps) {
   const safeSkills = skills ?? [];
-  // Extract unique categories
-  const uniqueCategories = Array.from(new Set(safeSkills.map((s) => s.category)));
+  // Extract unique categories across all skills
+  const uniqueCategories = Array.from(
+    new Set(
+      safeSkills.flatMap((s) => (s.categories && s.categories.length > 0 ? s.categories : (s.category ? [s.category] : [])))
+    )
+  ).filter(Boolean);
   const categories = ['All', ...uniqueCategories];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredSkills =
     selectedCategory === 'All'
       ? safeSkills
-      : safeSkills.filter((s) => s.category === selectedCategory);
+      : safeSkills.filter((s) => {
+          if (s.categories && s.categories.length > 0) {
+            return s.categories.includes(selectedCategory);
+          }
+          return s.category === selectedCategory;
+        });
 
   const gradientString = `conic-gradient(from var(--gradient-angle), transparent 0%, #8b5cf6 40%, #06b6d4 50%, transparent 60%, transparent 100%)`;
 
@@ -243,6 +253,9 @@ export function Skills({ skills = [] }: SkillsProps) {
                       >
                         {filteredSkills.map((skill, index) => {
                           const levelLabel = getLevelLabel(skill.level);
+                          const displayCategory = selectedCategory === 'All'
+                            ? (skill.categories?.[0] ?? skill.category ?? '')
+                            : selectedCategory;
 
                           return (
                             <div
@@ -251,8 +264,8 @@ export function Skills({ skills = [] }: SkillsProps) {
                             >
                               {/* FLOATING LEVEL BADGE ON HOVER */}
                               <div className="absolute -top-7 opacity-0 group-hover:opacity-100 group-hover:-top-8 transition-all duration-300 z-30 pointer-events-none">
-                                <div className="bg-[var(--color-accent)] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap">
-                                  {levelLabel} ({skill.level}%)
+                                <div className="bg-[var(--color-accent)] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-lg whitespace-nowrap">
+                                  {levelLabel} ({skill.level}%){displayCategory ? ` • ${displayCategory}` : ''}
                                 </div>
                               </div>
 
@@ -289,7 +302,7 @@ export function Skills({ skills = [] }: SkillsProps) {
                                 {/* Gradient Fill Accent Line at top of bar */}
                                 <div className="absolute top-0 inset-x-0 h-1 bg-[var(--color-accent)] rounded-t-xl group-hover:h-1.5 transition-all duration-300" />
 
-                                {/* CONTENT INSIDE BAR (PERCENTAGE & ICON & NAME) */}
+                                {/* CONTENT INSIDE BAR (PERCENTAGE & ICON & NAME & CATEGORY) */}
                                 <div className="relative z-20 flex flex-col items-center justify-end h-full text-center gap-1 sm:gap-1.5 pb-1.5">
                                   {/* Icon */}
                                   {skill.icon ? (
@@ -320,6 +333,13 @@ export function Skills({ skills = [] }: SkillsProps) {
                                   <div className="text-[11px] sm:text-xs font-medium text-[var(--color-text-primary)] line-clamp-2 px-1 max-w-full leading-tight">
                                     {skill.name}
                                   </div>
+
+                                  {/* Category Label */}
+                                  {displayCategory && (
+                                    <span className="text-[9px] font-medium text-[var(--color-text-secondary)] truncate max-w-full px-1">
+                                      {displayCategory}
+                                    </span>
+                                  )}
                                 </div>
                               </motion.div>
                             </div>

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const skillFormSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters"),
-  category: z.string().trim().min(2, "Category is required"),
+  categories: z.array(z.string().trim().min(1)).min(1, "At least 1 category is required"),
   level: z
     .number()
     .int()
@@ -13,7 +13,7 @@ export const skillFormSchema = z.object({
 
 export const skillUploadSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters"),
-  category: z.string().trim().min(2, "Category is required"),
+  categories: z.array(z.string().trim().min(1)).min(1, "At least 1 category is required"),
   level: z
     .number()
     .int()

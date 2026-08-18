@@ -22,18 +22,24 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const [settings, skills, experiences, projects, contact] = await Promise.all([
     prisma.settings.findFirst(),
-    prisma.skill.findMany({ orderBy: { category: "asc" } }),
+    prisma.skill.findMany({ orderBy: { name: "asc" } }),
     prisma.experience.findMany({ orderBy: { startDate: "desc" } }),
     prisma.portfolio.findMany({
       orderBy: { createdAt: "desc" },
       include: {
         skills: {
-          include: { skill: { select: { id: true, name: true } } },
+          include: { skill: { select: { id: true, name: true, icon: true } } },
         },
       },
     }),
     prisma.contact.findFirst(),
   ]);
+
+  const formattedSkills = skills.map((s) => ({
+    ...s,
+    categories: s.categories && s.categories.length > 0 ? s.categories : (s.category ? [s.category] : []),
+    category: s.categories?.[0] ?? s.category ?? "General",
+  }));
 
   const projectsWithSkills = projects.map((p) => ({
     ...p,
@@ -57,9 +63,9 @@ export default async function Home() {
 
       <main>
         <Hero settings={settings} />
-        <Marquee skills={skills} />
+        <Marquee skills={formattedSkills} />
         <About settings={settings} />
-        <Skills skills={skills} />
+        <Skills skills={formattedSkills} />
         <ExperienceSection experiences={experiences} />
         <ProjectsSection projects={projectsWithSkills} />
         <Contact contact={contact} />

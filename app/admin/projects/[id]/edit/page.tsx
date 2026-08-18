@@ -13,13 +13,22 @@ interface EditProjectPageProps {
 export default async function EditProjectPage({ params }: EditProjectPageProps) {
   const { id } = await params;
 
-  const [portfolio, allSkills] = await Promise.all([
+  const [portfolio, rawSkills] = await Promise.all([
     prisma.portfolio.findUnique({
       where: { id },
       include: { skills: { select: { skillId: true } } },
     }),
-    prisma.skill.findMany({ orderBy: { category: "asc" }, select: { id: true, name: true, category: true } }),
+    prisma.skill.findMany({
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, category: true, categories: true },
+    }),
   ]);
+
+  const allSkills = rawSkills.map((s) => ({
+    id: s.id,
+    name: s.name,
+    category: s.categories?.[0] ?? s.category ?? "General",
+  }));
 
   if (!portfolio) {
     notFound();

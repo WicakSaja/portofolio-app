@@ -35,7 +35,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
     where: { id },
     include: {
       skills: {
-        include: { skill: { select: { id: true, name: true } } },
+        include: { skill: { select: { id: true, name: true, icon: true } } },
       },
     },
   });
@@ -176,13 +176,24 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             >
               Technologies Used
             </h2>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-2.5">
               {project.skills.map((ps) => (
                 <span
                   key={ps.skill.id}
-                  className="inline-flex items-center rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 px-3 py-1.5 text-sm font-medium text-[var(--color-accent)]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] shadow-sm hover:border-[var(--color-accent)] transition-colors"
                 >
-                  {ps.skill.name}
+                  {ps.skill.icon && (
+                    <div className="relative w-4 h-4 shrink-0">
+                      <Image
+                        src={ps.skill.icon}
+                        alt={`${ps.skill.name} icon`}
+                        fill
+                        unoptimized
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+                  <span>{ps.skill.name}</span>
                 </span>
               ))}
             </div>

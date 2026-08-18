@@ -32,13 +32,14 @@ model Portfolio {
 }
 
 model Skill {
-  id        String   @id @default(cuid())
-  name      String
-  icon      String?
-  category  String
-  level     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String           @id @default(cuid())
+  name       String
+  icon       String?
+  category   String?
+  categories String[]         @default([])
+  level      Int
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
   portfolios PortfolioSkill[]
 }
 

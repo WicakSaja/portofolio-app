@@ -106,6 +106,7 @@ export const SkillScalarFieldEnum = {
   name: 'name',
   icon: 'icon',
   category: 'category',
+  categories: 'categories',
   level: 'level',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
