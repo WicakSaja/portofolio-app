@@ -1,6 +1,6 @@
 export type SkillFormValues = {
   name: string;
-  category: string;
+  categories: string[];
   level: number;
   icon: FileList | null;
 };

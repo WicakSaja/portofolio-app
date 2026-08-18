@@ -13,13 +13,28 @@ interface EditProjectPageProps {
 export default async function EditProjectPage({ params }: EditProjectPageProps) {
   const { id } = await params;
 
-  const portfolio = await prisma.portfolio.findUnique({
-    where: { id },
-  });
+  const [portfolio, rawSkills] = await Promise.all([
+    prisma.portfolio.findUnique({
+      where: { id },
+      include: { skills: { select: { skillId: true } } },
+    }),
+    prisma.skill.findMany({
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, category: true, categories: true },
+    }),
+  ]);
+
+  const allSkills = rawSkills.map((s) => ({
+    id: s.id,
+    name: s.name,
+    category: s.categories?.[0] ?? s.category ?? "General",
+  }));
 
   if (!portfolio) {
     notFound();
   }
+
+  const currentSkillIds = portfolio.skills?.map((s) => s.skillId) ?? [];
 
   return (
     <div className="px-6 py-8 sm:px-8">
@@ -39,7 +54,7 @@ export default async function EditProjectPage({ params }: EditProjectPageProps) 
       </div>
 
       <div className="rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6">
-        <ProjectEditForm portfolio={portfolio} />
+        <ProjectEditForm portfolio={portfolio} allSkills={allSkills} currentSkillIds={currentSkillIds} />
       </div>
     </div>
   );

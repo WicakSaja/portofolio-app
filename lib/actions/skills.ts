@@ -8,9 +8,11 @@ import { skillUploadSchema } from "@/lib/validations/skills";
 import type { ActionState } from "@/types/projects";
 
 export async function createSkill(formData: FormData): Promise<ActionState> {
+  const categories = formData.getAll("categories").map(String).filter(Boolean);
+
   const values = {
     name: String(formData.get("name") ?? ""),
-    category: String(formData.get("category") ?? ""),
+    categories: categories.length > 0 ? categories : (formData.get("category") ? [String(formData.get("category"))] : []),
     level: formData.get("level") ? Number(formData.get("level")) : NaN,
     icon: formData.get("icon") instanceof File ? formData.get("icon") : null,
   };
@@ -53,12 +55,14 @@ export async function createSkill(formData: FormData): Promise<ActionState> {
     await prisma.skill.create({
       data: {
         name: parsed.data.name,
-        category: parsed.data.category,
+        categories: parsed.data.categories,
+        category: parsed.data.categories[0] ?? "",
         level: parsed.data.level,
         icon: iconUrl,
       },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/skills");
 
@@ -75,9 +79,11 @@ export async function createSkill(formData: FormData): Promise<ActionState> {
 }
 
 export async function updateSkill(id: string, formData: FormData): Promise<ActionState> {
+  const categories = formData.getAll("categories").map(String).filter(Boolean);
+
   const values = {
     name: String(formData.get("name") ?? ""),
-    category: String(formData.get("category") ?? ""),
+    categories: categories.length > 0 ? categories : (formData.get("category") ? [String(formData.get("category"))] : []),
     level: formData.get("level") ? Number(formData.get("level")) : NaN,
     icon: formData.get("icon") instanceof File ? formData.get("icon") : null,
   };
@@ -144,12 +150,14 @@ export async function updateSkill(id: string, formData: FormData): Promise<Actio
       where: { id },
       data: {
         name: parsed.data.name,
-        category: parsed.data.category,
+        categories: parsed.data.categories,
+        category: parsed.data.categories[0] ?? "",
         level: parsed.data.level,
         ...(iconUrl !== undefined ? { icon: iconUrl } : {}),
       },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/skills");
 
@@ -194,6 +202,7 @@ export async function deleteSkill(id: string): Promise<ActionState> {
       where: { id },
     });
 
+    revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/skills");
 

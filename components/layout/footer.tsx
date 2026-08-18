@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Globe, CodeXml, Phone, ArrowUp, Download } from "lucide-react";
+import { Mail, Phone, ArrowUp, Download } from "lucide-react";
 import { toast } from "sonner";
 import { formatWhatsAppUrl } from "@/lib/utils/whatsapp";
 import { LightBeamButton } from "@/components/ui/light-beam-button";

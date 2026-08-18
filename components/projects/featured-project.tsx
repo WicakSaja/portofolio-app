@@ -12,6 +12,7 @@ interface FeaturedProjectProps {
     category: string;
     github: string | null;
     demo: string | null;
+    skills?: { id: string; name: string; icon?: string | null }[];
   };
 }
 
@@ -53,6 +54,30 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
         <p className="text-[var(--color-text-secondary)] leading-relaxed mb-8">
           {project.description}
         </p>
+
+        {project.skills && project.skills.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2 mb-8">
+            {project.skills.map((skill) => (
+              <span
+                key={skill.id}
+                className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-background)] border border-[var(--color-border)] px-3 py-1 text-xs font-medium text-[var(--color-text-secondary)] shadow-sm hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)] transition-colors"
+              >
+                {skill.icon && (
+                  <div className="relative w-3.5 h-3.5 shrink-0">
+                    <Image
+                      src={skill.icon}
+                      alt={`${skill.name} icon`}
+                      fill
+                      unoptimized
+                      className="object-contain"
+                    />
+                  </div>
+                )}
+                <span>{skill.name}</span>
+              </span>
+            ))}
+          </div>
+        )}
 
         <div className="flex flex-wrap items-center gap-4 mt-auto">
           <Link 

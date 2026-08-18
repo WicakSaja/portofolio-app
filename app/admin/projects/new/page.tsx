@@ -1,8 +1,22 @@
 import Link from "next/link";
 
+import { prisma } from "@/lib/db/prisma";
 import { ProjectCreateForm } from "@/components/admin/project-create-form";
 
-export default function NewProjectPage() {
+export const dynamic = "force-dynamic";
+
+export default async function NewProjectPage() {
+  const rawSkills = await prisma.skill.findMany({
+    orderBy: { name: "asc" },
+    select: { id: true, name: true, category: true, categories: true },
+  });
+
+  const allSkills = rawSkills.map((s) => ({
+    id: s.id,
+    name: s.name,
+    category: s.categories?.[0] ?? s.category ?? "General",
+  }));
+
   return (
     <div className="px-6 py-8 sm:px-8">
       <div className="mb-6 flex items-center justify-between gap-4">
@@ -19,7 +33,7 @@ export default function NewProjectPage() {
       </div>
 
       <div className="rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6">
-        <ProjectCreateForm />
+        <ProjectCreateForm allSkills={allSkills} />
       </div>
     </div>
   );

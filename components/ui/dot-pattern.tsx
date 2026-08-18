@@ -90,20 +90,27 @@ export function DotPattern({
     return () => window.removeEventListener("resize", updateDimensions)
   }, [])
 
+  const cols = Math.ceil(dimensions.width / width)
+  const rows = Math.ceil(dimensions.height / height)
+
   const dots = Array.from(
     {
-      length:
-        Math.ceil(dimensions.width / width) *
-        Math.ceil(dimensions.height / height),
+      length: cols * rows,
     },
     (_, i) => {
-      const col = i % Math.ceil(dimensions.width / width)
-      const row = Math.floor(i / Math.ceil(dimensions.width / width))
+      const col = i % cols
+      const row = Math.floor(i / cols)
+      // Deterministic pseudo-random based on index for purity
+      const seed1 = Math.sin(i * 13.37 + 7.1) * 10000
+      const rand1 = seed1 - Math.floor(seed1)
+      const seed2 = Math.sin(i * 17.73 + 11.3) * 10000
+      const rand2 = seed2 - Math.floor(seed2)
+
       return {
         x: col * width + cx + x,
         y: row * height + cy + y,
-        delay: Math.random() * 5,
-        duration: Math.random() * 3 + 2,
+        delay: rand1 * 5,
+        duration: rand2 * 3 + 2,
       }
     }
   )

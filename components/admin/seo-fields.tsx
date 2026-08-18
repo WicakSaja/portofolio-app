@@ -19,13 +19,16 @@ export function SeoFields({ form, defaultTitle = "", defaultDescription = "", pa
   const seoTitle = useWatch({ control: form.control, name: "seoTitle" }) || "";
   const seoDescription = useWatch({ control: form.control, name: "seoDescription" }) || "";
   const seoCanonicalUrl = useWatch({ control: form.control, name: "seoCanonicalUrl" }) || "";
-  const seoOgTitle = useWatch({ control: form.control, name: "seoOgTitle" }) || "";
-  const seoOgDescription = useWatch({ control: form.control, name: "seoOgDescription" }) || "";
   const seoOgImage = useWatch({ control: form.control, name: "seoOgImage" }) || "";
   const seoIndex = useWatch({ control: form.control, name: "seoIndex" });
 
-  const mainTitle = useWatch({ control: form.control, name: "title" }) || useWatch({ control: form.control, name: "position" }) || defaultTitle;
-  const mainDesc = useWatch({ control: form.control, name: "description" }) || defaultDescription;
+  const watchTitle = useWatch({ control: form.control, name: "title" });
+  const watchPosition = useWatch({ control: form.control, name: "position" });
+  const watchDescription = useWatch({ control: form.control, name: "description" });
+  const watchImages = useWatch({ control: form.control, name: "images" });
+
+  const mainTitle = watchTitle || watchPosition || defaultTitle;
+  const mainDesc = watchDescription || defaultDescription;
 
   // Computed preview values
   const previewTitle = seoTitle.trim() !== "" ? seoTitle : `${mainTitle} | Bayu Wicaksono`;
@@ -43,7 +46,7 @@ export function SeoFields({ form, defaultTitle = "", defaultDescription = "", pa
   if (previewDesc.length > 160) {
     warnings.push("SEO Description disarankan 140–160 karakter (saat ini: " + previewDesc.length + " karakter).");
   }
-  if (!seoOgImage && !useWatch({ control: form.control, name: "images" })) {
+  if (!seoOgImage && !watchImages) {
     warnings.push("OG Image belum tersedia. Fallback akan menggunakan gambar utama atau gambar global.");
   }
   if (seoCanonicalUrl.includes("localhost")) {

@@ -10,17 +10,17 @@ export const dynamic = "force-dynamic";
 export default async function SkillsAdminPage() {
   const skills = await prisma.skill.findMany({
     orderBy: [
-      { category: "asc" },
       { name: "asc" },
     ],
   });
 
-  // Group skills by category
+  // Group skills by primary category
   const categories = skills.reduce((acc, skill) => {
-    if (!acc[skill.category]) {
-      acc[skill.category] = [];
+    const primaryCat = skill.categories?.[0] ?? skill.category ?? "Uncategorized";
+    if (!acc[primaryCat]) {
+      acc[primaryCat] = [];
     }
-    acc[skill.category].push(skill);
+    acc[primaryCat].push(skill);
     return acc;
   }, {} as Record<string, typeof skills>);
 
@@ -89,7 +89,23 @@ export default async function SkillsAdminPage() {
                             </div>
                           </td>
                           <td className="px-6 py-3">
-                            <span className="font-medium text-white">{skill.name}</span>
+                            <div className="space-y-1">
+                              <span className="font-medium text-white block">{skill.name}</span>
+                              <div className="flex flex-wrap gap-1">
+                                {(skill.categories && skill.categories.length > 0 ? skill.categories : [skill.category || "General"]).map((cat, idx) => (
+                                  <span
+                                    key={cat}
+                                    className={`inline-flex text-[10px] px-1.5 py-0.5 rounded font-medium ${
+                                      idx === 0
+                                        ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+                                        : "bg-white/5 text-slate-400 border border-white/10"
+                                    }`}
+                                  >
+                                    {cat}{idx === 0 && " (Primary)"}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
                           </td>
                           <td className="px-6 py-3">
                             <div className="flex items-center gap-3 max-w-xs">

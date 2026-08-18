@@ -31,7 +31,14 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
 export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const { id } = await params;
 
-  const project = await prisma.portfolio.findUnique({ where: { id } });
+  const project = await prisma.portfolio.findUnique({
+    where: { id },
+    include: {
+      skills: {
+        include: { skill: { select: { id: true, name: true, icon: true } } },
+      },
+    },
+  });
 
   if (!project) {
     notFound();
@@ -159,6 +166,39 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             {project.description}
           </div>
         </div>
+
+        {/* Technologies Used */}
+        {project.skills && project.skills.length > 0 && (
+          <div className="mb-12 max-w-3xl">
+            <h2
+              className="mb-4 text-xl font-semibold"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Technologies Used
+            </h2>
+            <div className="flex flex-wrap items-center gap-2.5">
+              {project.skills.map((ps) => (
+                <span
+                  key={ps.skill.id}
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] shadow-sm hover:border-[var(--color-accent)] transition-colors"
+                >
+                  {ps.skill.icon && (
+                    <div className="relative w-4 h-4 shrink-0">
+                      <Image
+                        src={ps.skill.icon}
+                        alt={`${ps.skill.name} icon`}
+                        fill
+                        unoptimized
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+                  <span>{ps.skill.name}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Image Gallery */}
         {displayImages.length > 1 && (

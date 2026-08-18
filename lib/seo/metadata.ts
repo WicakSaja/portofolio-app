@@ -19,6 +19,7 @@ interface GlobalSeoOptions {
   seoOgImage?: string | null;
   avatar?: string | null;
   googleSiteVerification?: string | null;
+  bingSiteVerification?: string | null;
   robotsIndex?: boolean;
   robotsFollow?: boolean;
 }
@@ -60,9 +61,14 @@ export function buildGlobalMetadata(
   const index = settings?.robotsIndex ?? true;
   const follow = settings?.robotsFollow ?? true;
 
-  const verification: Record<string, string> = {};
+  const verification: Record<string, string | Record<string, string>> = {};
   if (settings?.googleSiteVerification && settings.googleSiteVerification.trim() !== "") {
     verification.google = settings.googleSiteVerification;
+  }
+  if (settings?.bingSiteVerification && settings.bingSiteVerification.trim() !== "") {
+    verification.other = {
+      "msvalidate.01": settings.bingSiteVerification,
+    };
   }
 
   return {
