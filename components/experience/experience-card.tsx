@@ -25,11 +25,11 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
 
   return (
     <div className="relative pl-8 md:pl-0">
-      {/* Timeline connector line/dot for mobile/desktop layout */}
-      <div className="absolute left-[-5px] top-1.5 h-3 w-3 rounded-full bg-[var(--color-primary)] md:hidden"></div>
+      {/* Timeline connector dot for mobile layout */}
+      <div className="absolute left-3 top-1.5 h-3 w-3 -translate-x-1/2 rounded-full bg-[var(--color-primary)] z-10 md:hidden"></div>
       
       <div className="md:grid md:grid-cols-[250px_1fr] md:gap-8 lg:gap-12 md:items-start relative">
-        <div className="hidden md:flex flex-col text-[var(--color-text-secondary)] text-sm sticky top-24 pt-2 border-r-2 border-[var(--color-border)] pr-4 h-full">
+        <div className="hidden md:flex flex-col text-[var(--color-text-secondary)] text-sm sticky top-24 pt-2 pr-6 relative">
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-4 h-4" />
             <span className="font-mono">{start} &ndash; {end}</span>
@@ -38,7 +38,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
             <Building2 className="w-4 h-4" />
             <span className="font-medium text-[var(--color-text-primary)]">{experience.company}</span>
           </div>
-          <div className="absolute right-[-7px] top-4 h-3 w-3 rounded-full bg-[var(--color-primary)]"></div>
+          <div className="absolute right-0 translate-x-1/2 top-4 h-3 w-3 rounded-full bg-[var(--color-primary)] z-10"></div>
         </div>
 
         <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-6 relative overflow-hidden group hover:border-[var(--color-primary)] transition-colors duration-300">

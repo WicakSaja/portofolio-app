@@ -18,6 +18,17 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
     { name: "Home", href: "#" },
     { name: "About", href: "#about" },
@@ -28,17 +39,24 @@ export function Navbar() {
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        isScrolled
-          ? "bg-[var(--color-background)]/95 backdrop-blur-md shadow-sm border-b border-[var(--color-border)]"
-          : "bg-transparent"
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Background layer for scroll and blur - kept separate so header doesn't create a containing block for fixed modal */}
+      <div
+        className={`absolute inset-0 -z-10 transition-colors duration-300 pointer-events-none ${
+          isScrolled || isMobileMenuOpen
+            ? "bg-[var(--color-background)]/95 backdrop-blur-md shadow-sm border-b border-[var(--color-border)]"
+            : "bg-transparent"
+        }`}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
-            <Link href="#" className="font-heading font-bold text-xl text-[var(--color-text-primary)]">
+            <Link
+              href="#"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="font-heading font-bold text-xl text-[var(--color-text-primary)]"
+            >
               Portfolio
             </Link>
           </div>
@@ -66,11 +84,11 @@ export function Navbar() {
           <div className="flex items-center md:hidden">
             <button
               type="button"
-              className="text-[var(--color-text-primary)] hover:text-[var(--color-primary)] p-2"
+              className="text-[var(--color-text-primary)] hover:text-[var(--color-primary)] p-2 rounded-lg transition-colors focus:outline-none"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-expanded={isMobileMenuOpen}
+              aria-label="Toggle menu"
             >
-              <span className="sr-only">Open main menu</span>
               {isMobileMenuOpen ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
               ) : (
@@ -83,19 +101,19 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-[var(--color-background)] z-40 overflow-y-auto border-t border-[var(--color-border)]">
-          <div className="px-4 pt-2 pb-6 space-y-1 sm:px-3 flex flex-col h-full">
+        <div className="md:hidden fixed inset-0 top-16 bg-[var(--color-background)] z-40 overflow-y-auto border-t border-[var(--color-border)] flex flex-col justify-between">
+          <div className="px-4 pt-4 pb-6 space-y-2 sm:px-3 flex flex-col">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="block px-3 py-4 text-base font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] hover:text-[var(--color-primary)] rounded-md transition-colors"
+                className="block px-4 py-3 text-base font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] hover:text-[var(--color-primary)] rounded-xl transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <div className="mt-6 px-3">
+            <div className="mt-6 px-1">
               <LightBeamButton
                 href="#contact"
                 className="w-full text-center py-3"

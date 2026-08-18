@@ -22,7 +22,10 @@ export function ExperienceSection({ experiences }: ExperienceProps) {
   return (
     <section id="experience" className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-6">
       <SectionHeader label="03 — EXPERIENCE" title="Career Timeline" />
-      <div className="mt-12 relative border-l border-[var(--color-border)] ml-3 md:ml-0 md:border-l-0">
+      <div className="mt-12 relative">
+        {/* Continuous timeline line for mobile and desktop */}
+        <div className="absolute top-0 bottom-0 left-3 md:left-[250px] w-px md:w-[2px] -translate-x-1/2 bg-[var(--color-border)] pointer-events-none" />
+
         <div className="flex flex-col gap-8 md:gap-12">
           {experiences.map((exp, index) => (
             <AnimateOnScroll key={exp.id} delay={index * 0.1}>

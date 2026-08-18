@@ -176,31 +176,31 @@ export function Skills({ skills = [] }: SkillsProps) {
 
         {/* Bar Chart Container */}
         <AnimateOnScroll delay={0.2}>
-          <div className="group/chart mt-10 sm:mt-14 rounded-2xl bg-[var(--color-surface)]/60 border border-[var(--color-border)] p-4 sm:p-8 backdrop-blur-sm relative isolate shadow-xl overflow-hidden">
+          <div className="group/chart mt-8 sm:mt-12 rounded-2xl bg-[var(--color-surface)]/60 border border-[var(--color-border)] p-3 sm:p-6 md:p-8 backdrop-blur-sm relative isolate shadow-xl overflow-hidden">
             {/* Ambient Chart Surface Background */}
             <div className="absolute inset-0 -z-10 rounded-2xl bg-[radial-gradient(circle_at_50%_0%,rgba(139,92,246,0.06)_0%,transparent_70%)]" />
 
-            <div className="relative flex flex-col md:flex-row gap-4 sm:gap-6">
+            <div className="relative flex flex-col md:flex-row gap-3 sm:gap-6">
               {/* Chart Main Display Area */}
-              <div className="relative flex-1 min-h-[360px] sm:min-h-[420px] flex overflow-hidden">
+              <div className="relative flex-1 min-h-[270px] sm:min-h-[330px] md:min-h-[400px] flex overflow-hidden">
                 {/* Top Padding Reserved for Floating Badges */}
-                <div className="w-full flex pt-9 pb-0">
-                  {/* Y-AXIS LEVEL LABELS COLUMN (No background overlay) */}
-                  <div className="w-24 sm:w-28 shrink-0 relative border-r border-[var(--color-border)] select-none z-20 h-[320px] sm:h-[360px]">
+                <div className="w-full flex pt-7 sm:pt-9 pb-0">
+                  {/* Y-AXIS LEVEL LABELS COLUMN */}
+                  <div className="w-16 sm:w-20 md:w-28 shrink-0 relative border-r border-[var(--color-border)] select-none z-20 h-[230px] sm:h-[280px] md:h-[350px]">
                     {Y_AXIS_LEVELS.map((lvl) => (
                       <div
                         key={lvl.label}
                         style={{ bottom: `${lvl.val}%` }}
-                        className="absolute right-3 sm:right-4 translate-y-1/2 flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-[var(--color-text-secondary)] tracking-wide whitespace-nowrap"
+                        className="absolute right-2 sm:right-3 md:right-4 translate-y-1/2 flex items-center gap-1 sm:gap-1.5 text-[9px] sm:text-[11px] md:text-xs font-semibold text-[var(--color-text-secondary)] tracking-wide whitespace-nowrap"
                       >
                         <span>{lvl.label}</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]/70" />
+                        <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[var(--color-accent)]/70" />
                       </div>
                     ))}
                   </div>
 
                   {/* CHART GRID & BARS AREA */}
-                  <div className="relative flex-1 flex flex-col justify-between overflow-hidden h-[320px] sm:h-[360px]">
+                  <div className="relative flex-1 flex flex-col justify-between overflow-hidden h-[230px] sm:h-[280px] md:h-[350px]">
                     {/* Grid Horizontal Dotted Lines */}
                     <div className="absolute inset-0 pointer-events-none z-0 pl-2 sm:pl-4">
                       {Y_AXIS_LEVELS.map((lvl) => (
@@ -219,9 +219,9 @@ export function Skills({ skills = [] }: SkillsProps) {
                       <button
                         onClick={handleScrollLeft}
                         aria-label="Scroll left"
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-40 p-2 sm:p-2.5 rounded-full bg-[var(--color-surface)]/95 border border-[var(--color-border)] text-[var(--color-text-primary)] shadow-lg backdrop-blur-md opacity-0 group-hover/chart:opacity-100 hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300 cursor-pointer"
+                        className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-40 p-1.5 sm:p-2.5 rounded-full bg-[var(--color-surface)]/95 border border-[var(--color-border)] text-[var(--color-text-primary)] shadow-lg backdrop-blur-md opacity-80 sm:opacity-0 sm:group-hover/chart:opacity-100 hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300 cursor-pointer"
                       >
-                        <ChevronLeft className="w-5 h-5" />
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     )}
 
@@ -230,9 +230,9 @@ export function Skills({ skills = [] }: SkillsProps) {
                       <button
                         onClick={handleScrollRight}
                         aria-label="Scroll right"
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-40 p-2 sm:p-2.5 rounded-full bg-[var(--color-surface)]/95 border border-[var(--color-border)] text-[var(--color-text-primary)] shadow-lg backdrop-blur-md opacity-0 group-hover/chart:opacity-100 hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300 cursor-pointer"
+                        className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-40 p-1.5 sm:p-2.5 rounded-full bg-[var(--color-surface)]/95 border border-[var(--color-border)] text-[var(--color-text-primary)] shadow-lg backdrop-blur-md opacity-80 sm:opacity-0 sm:group-hover/chart:opacity-100 hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300 cursor-pointer"
                       >
-                        <ChevronRight className="w-5 h-5" />
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     )}
 
@@ -249,7 +249,7 @@ export function Skills({ skills = [] }: SkillsProps) {
                       {/* Vertical Bars Container */}
                       <div
                         key={selectedCategory}
-                        className="relative z-10 w-full h-full flex items-end justify-around gap-4 sm:gap-6 min-w-max"
+                        className="relative z-10 w-full h-full flex items-end justify-start sm:justify-around gap-2.5 sm:gap-4 md:gap-6 px-3 sm:px-5 min-w-max"
                       >
                         {filteredSkills.map((skill, index) => {
                           const levelLabel = getLevelLabel(skill.level);
@@ -260,11 +260,11 @@ export function Skills({ skills = [] }: SkillsProps) {
                           return (
                             <div
                               key={skill.id}
-                              className="relative flex flex-col items-center justify-end h-full w-[90px] sm:w-[110px] max-w-[120px] shrink-0 group"
+                              className="relative flex flex-col items-center justify-end h-full w-[64px] sm:w-[85px] md:w-[110px] shrink-0 group"
                             >
                               {/* FLOATING LEVEL BADGE ON HOVER */}
                               <div className="absolute -top-7 opacity-0 group-hover:opacity-100 group-hover:-top-8 transition-all duration-300 z-30 pointer-events-none">
-                                <div className="bg-[var(--color-accent)] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-lg whitespace-nowrap">
+                                <div className="bg-[var(--color-accent)] text-white text-[9px] sm:text-[10px] font-bold px-2 sm:px-2.5 py-0.5 rounded-full shadow-lg whitespace-nowrap">
                                   {levelLabel} ({skill.level}%){displayCategory ? ` • ${displayCategory}` : ''}
                                 </div>
                               </div>
@@ -276,17 +276,17 @@ export function Skills({ skills = [] }: SkillsProps) {
                                 viewport={{ once: true }}
                                 transition={{
                                   duration: 0.85,
-                                  delay: index * 0.08,
+                                  delay: index * 0.05,
                                   ease: [0.16, 1, 0.3, 1],
                                 }}
-                                className="w-full relative isolate flex flex-col justify-end p-2 sm:p-3 rounded-t-xl rounded-b-none bg-[var(--color-surface)] transition-all duration-300 group-hover:shadow-[0_0_25px_-5px_rgba(139,92,246,0.35)] group-hover:-translate-y-1 overflow-hidden cursor-pointer"
+                                className="w-full relative isolate flex flex-col justify-end p-1.5 sm:p-2.5 md:p-3 rounded-t-lg sm:rounded-t-xl rounded-b-none bg-[var(--color-surface)] transition-all duration-300 group-hover:shadow-[0_0_25px_-5px_rgba(139,92,246,0.35)] group-hover:-translate-y-1 overflow-hidden cursor-pointer"
                               >
                                 {/* Default Static Border */}
-                                <div className="absolute inset-0 -z-10 rounded-t-xl rounded-b-none border border-b-0 border-[var(--color-border)] group-hover:border-transparent transition-colors" />
+                                <div className="absolute inset-0 -z-10 rounded-t-lg sm:rounded-t-xl rounded-b-none border border-b-0 border-[var(--color-border)] group-hover:border-transparent transition-colors" />
 
                                 {/* Rotating Light Beam Gradient Border on Hover */}
                                 <div
-                                  className="absolute inset-0 -z-10 rounded-t-xl rounded-b-none p-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-border-spin"
+                                  className="absolute inset-0 -z-10 rounded-t-lg sm:rounded-t-xl rounded-b-none p-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-border-spin"
                                   style={{
                                     '--gradient-angle': '0deg',
                                     background: gradientString,
@@ -294,19 +294,19 @@ export function Skills({ skills = [] }: SkillsProps) {
                                 />
 
                                 {/* Inner Surface Mask */}
-                                <div className="absolute inset-[1px] bottom-0 -z-10 rounded-t-[11px] rounded-b-none bg-gradient-to-t from-[var(--color-surface)] via-[var(--color-surface)]/90 to-[var(--color-accent)]/20" />
+                                <div className="absolute inset-[1px] bottom-0 -z-10 rounded-t-[7px] sm:rounded-t-[11px] rounded-b-none bg-gradient-to-t from-[var(--color-surface)] via-[var(--color-surface)]/90 to-[var(--color-accent)]/20" />
 
                                 {/* Subtle Inner Glow Overlay */}
-                                <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(139,92,246,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-xl rounded-b-none" />
+                                <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(139,92,246,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-lg sm:rounded-t-xl rounded-b-none" />
 
                                 {/* Gradient Fill Accent Line at top of bar */}
-                                <div className="absolute top-0 inset-x-0 h-1 bg-[var(--color-accent)] rounded-t-xl group-hover:h-1.5 transition-all duration-300" />
+                                <div className="absolute top-0 inset-x-0 h-0.5 sm:h-1 bg-[var(--color-accent)] rounded-t-lg sm:rounded-t-xl group-hover:h-1 sm:group-hover:h-1.5 transition-all duration-300" />
 
                                 {/* CONTENT INSIDE BAR (PERCENTAGE & ICON & NAME & CATEGORY) */}
-                                <div className="relative z-20 flex flex-col items-center justify-end h-full text-center gap-1 sm:gap-1.5 pb-1.5">
+                                <div className="relative z-20 flex flex-col items-center justify-end h-full text-center gap-0.5 sm:gap-1 md:gap-1.5 pb-1 sm:pb-1.5">
                                   {/* Icon */}
                                   {skill.icon ? (
-                                    <div className="relative w-6 h-6 sm:w-7 sm:h-7 shrink-0 drop-shadow">
+                                    <div className="relative w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 shrink-0 drop-shadow">
                                       <Image
                                         src={skill.icon}
                                         alt={`${skill.name} icon`}
@@ -316,27 +316,27 @@ export function Skills({ skills = [] }: SkillsProps) {
                                       />
                                     </div>
                                   ) : (
-                                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[var(--color-border)]/80 flex items-center justify-center shrink-0">
-                                      <span className="text-[10px] sm:text-xs font-bold text-[var(--color-text-primary)]">
+                                    <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 rounded-full bg-[var(--color-border)]/80 flex items-center justify-center shrink-0">
+                                      <span className="text-[8px] sm:text-[10px] md:text-xs font-bold text-[var(--color-text-primary)]">
                                         {skill.name.charAt(0)}
                                       </span>
                                     </div>
                                   )}
 
-                                  {/* Large Percentage */}
-                                  <div className="text-base sm:text-2xl font-extrabold tracking-tight text-[var(--color-text-primary)] group-hover:scale-110 transition-transform duration-300">
+                                  {/* Percentage */}
+                                  <div className="text-xs sm:text-base md:text-2xl font-extrabold tracking-tight text-[var(--color-text-primary)] group-hover:scale-110 transition-transform duration-300">
                                     {skill.level}
-                                    <span className="text-xs sm:text-sm font-semibold opacity-75 ml-0.5">%</span>
+                                    <span className="text-[8px] sm:text-xs md:text-sm font-semibold opacity-75 ml-0.5">%</span>
                                   </div>
 
                                   {/* Skill Name */}
-                                  <div className="text-[11px] sm:text-xs font-medium text-[var(--color-text-primary)] line-clamp-2 px-1 max-w-full leading-tight">
+                                  <div className="text-[9px] sm:text-[11px] md:text-xs font-medium text-[var(--color-text-primary)] line-clamp-2 px-0.5 max-w-full leading-tight">
                                     {skill.name}
                                   </div>
 
                                   {/* Category Label */}
                                   {displayCategory && (
-                                    <span className="text-[9px] font-medium text-[var(--color-text-secondary)] truncate max-w-full px-1">
+                                    <span className="hidden sm:block text-[8px] md:text-[9px] font-medium text-[var(--color-text-secondary)] truncate max-w-full px-0.5">
                                       {displayCategory}
                                     </span>
                                   )}
