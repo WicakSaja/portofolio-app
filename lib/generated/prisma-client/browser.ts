@@ -42,3 +42,8 @@ export type Contact = Prisma.ContactModel
  * 
  */
 export type Settings = Prisma.SettingsModel
+/**
+ * Model PortfolioSkill
+ * 
+ */
+export type PortfolioSkill = Prisma.PortfolioSkillModel

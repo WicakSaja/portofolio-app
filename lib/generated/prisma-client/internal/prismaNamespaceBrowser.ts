@@ -55,7 +55,8 @@ export const ModelName = {
   Skill: 'Skill',
   Experience: 'Experience',
   Contact: 'Contact',
-  Settings: 'Settings'
+  Settings: 'Settings',
+  PortfolioSkill: 'PortfolioSkill'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -176,6 +177,16 @@ export const SettingsScalarFieldEnum = {
 } as const
 
 export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
+
+
+export const PortfolioSkillScalarFieldEnum = {
+  id: 'id',
+  portfolioId: 'portfolioId',
+  skillId: 'skillId',
+  createdAt: 'createdAt'
+} as const
+
+export type PortfolioSkillScalarFieldEnum = (typeof PortfolioSkillScalarFieldEnum)[keyof typeof PortfolioSkillScalarFieldEnum]
 
 
 export const SortOrder = {

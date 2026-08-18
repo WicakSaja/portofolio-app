@@ -15,10 +15,18 @@ import { SeoFields } from "./seo-fields";
 const inputClassName =
   "mt-2 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-slate-500 focus:border-white/35";
 
-export function ProjectCreateForm() {
+export function ProjectCreateForm({ allSkills = [] }: { allSkills?: { id: string; name: string; category: string }[] }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [selectedSkillIds, setSelectedSkillIds] = useState<string[]>([]);
+
+  const safeAllSkills = allSkills ?? [];
+  const groupedSkills = safeAllSkills.reduce((acc, skill) => {
+    if (!acc[skill.category]) acc[skill.category] = [];
+    acc[skill.category].push(skill);
+    return acc;
+  }, {} as Record<string, typeof allSkills>);
 
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectFormSchema),
@@ -30,6 +38,7 @@ export function ProjectCreateForm() {
       demo: "",
       category: "",
       featured: false,
+      skillIds: [],
 
       seoTitle: "",
       seoDescription: "",
@@ -77,6 +86,8 @@ export function ProjectCreateForm() {
       formData.append("seoIndex", String(values.seoIndex));
       formData.append("seoFollow", String(values.seoFollow));
 
+      selectedSkillIds.forEach((id) => formData.append("skillIds", id));
+
       if (selectedFiles) {
         for (let i = 0; i < selectedFiles.length; i++) {
           formData.append("images", selectedFiles[i]);
@@ -92,6 +103,7 @@ export function ProjectCreateForm() {
 
       toast.success(result.message);
       form.reset();
+      setSelectedSkillIds([]);
       router.push("/admin/projects");
       router.refresh();
     });
@@ -153,6 +165,42 @@ export function ProjectCreateForm() {
             />
             Featured project
           </label>
+        </div>
+      </div>
+
+      {/* SKILLS SECTION */}
+      <div>
+        <label className="text-sm text-slate-200">
+          Technologies / Skills <span className="text-slate-400">(select from existing skills)</span>
+        </label>
+        <div className="mt-2 rounded-xl border border-white/15 bg-white/5 p-4 max-h-[300px] overflow-y-auto space-y-6">
+          {Object.entries(groupedSkills).map(([category, skills]) => (
+            <div key={category}>
+              <h4 className="mb-2 text-sm font-semibold text-slate-300 capitalize">{category}</h4>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+                {skills?.map((skill) => (
+                  <label key={skill.id} className="inline-flex items-center gap-2 text-sm text-slate-400 cursor-pointer hover:text-slate-200 transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={selectedSkillIds.includes(skill.id)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedSkillIds((prev) => [...prev, skill.id]);
+                        } else {
+                          setSelectedSkillIds((prev) => prev.filter((id) => id !== skill.id));
+                        }
+                      }}
+                      className="h-4 w-4 rounded border-white/20 bg-white/5 text-slate-900 focus:ring-0 focus:ring-offset-0"
+                    />
+                    <span className="truncate">{skill.name}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          ))}
+          {allSkills.length === 0 && (
+            <p className="text-sm text-slate-400">No skills available. Add some in the skills section first.</p>
+          )}
         </div>
       </div>
 

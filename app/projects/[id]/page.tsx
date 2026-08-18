@@ -31,7 +31,14 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
 export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const { id } = await params;
 
-  const project = await prisma.portfolio.findUnique({ where: { id } });
+  const project = await prisma.portfolio.findUnique({
+    where: { id },
+    include: {
+      skills: {
+        include: { skill: { select: { id: true, name: true } } },
+      },
+    },
+  });
 
   if (!project) {
     notFound();
@@ -159,6 +166,28 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             {project.description}
           </div>
         </div>
+
+        {/* Technologies Used */}
+        {project.skills && project.skills.length > 0 && (
+          <div className="mb-12 max-w-3xl">
+            <h2
+              className="mb-4 text-xl font-semibold"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Technologies Used
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {project.skills.map((ps) => (
+                <span
+                  key={ps.skill.id}
+                  className="inline-flex items-center rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 px-3 py-1.5 text-sm font-medium text-[var(--color-accent)]"
+                >
+                  {ps.skill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Image Gallery */}
         {displayImages.length > 1 && (

@@ -18,6 +18,7 @@ export async function createProject(formData: FormData): Promise<ActionState> {
     demo: String(formData.get("demo") ?? ""),
     category: String(formData.get("category") ?? ""),
     featured: String(formData.get("featured") ?? "false") === "true",
+    skillIds: formData.getAll("skillIds").map(String).filter(Boolean),
 
     seoTitle: String(formData.get("seoTitle") ?? ""),
     seoDescription: String(formData.get("seoDescription") ?? ""),
@@ -91,6 +92,12 @@ export async function createProject(formData: FormData): Promise<ActionState> {
         seoCanonicalUrl: parsed.data.seoCanonicalUrl || null,
         seoIndex: parsed.data.seoIndex,
         seoFollow: parsed.data.seoFollow,
+
+        skills: {
+          create: (parsed.data.skillIds ?? []).map((skillId) => ({
+            skillId,
+          })),
+        },
       },
     });
 
@@ -122,6 +129,7 @@ export async function updateProject(id: string, formData: FormData): Promise<Act
     demo: String(formData.get("demo") ?? ""),
     category: String(formData.get("category") ?? ""),
     featured: String(formData.get("featured") ?? "false") === "true",
+    skillIds: formData.getAll("skillIds").map(String).filter(Boolean),
 
     seoTitle: String(formData.get("seoTitle") ?? ""),
     seoDescription: String(formData.get("seoDescription") ?? ""),
@@ -224,6 +232,13 @@ export async function updateProject(id: string, formData: FormData): Promise<Act
         seoCanonicalUrl: parsed.data.seoCanonicalUrl || null,
         seoIndex: parsed.data.seoIndex,
         seoFollow: parsed.data.seoFollow,
+
+        skills: {
+          deleteMany: {},
+          create: (parsed.data.skillIds ?? []).map((skillId) => ({
+            skillId,
+          })),
+        },
       },
     });
 

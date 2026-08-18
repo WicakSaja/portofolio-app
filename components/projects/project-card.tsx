@@ -11,6 +11,7 @@ interface ProjectCardProps {
     category: string;
     github: string | null;
     demo: string | null;
+    skills?: { id: string; name: string }[];
   };
 }
 
@@ -51,6 +52,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <p className="text-[var(--color-text-secondary)] text-sm line-clamp-2 mt-auto">
           {project.description}
         </p>
+        
+        {project.skills && project.skills.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-3">
+            {project.skills.slice(0, 3).map((skill) => (
+              <span
+                key={skill.id}
+                className="inline-flex rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 px-2 py-0.5 text-[10px] font-medium text-[var(--color-accent)]"
+              >
+                {skill.name}
+              </span>
+            ))}
+            {project.skills.length > 3 && (
+              <span className="text-[10px] text-[var(--color-text-secondary)] self-center">+{project.skills.length - 3} more</span>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -86,7 +86,7 @@ export function LightBeamButton({
           href={href}
           target={target}
           rel={rel}
-          onClick={onClick as any}
+          onClick={onClick as React.MouseEventHandler<HTMLAnchorElement> | undefined}
           className={baseClassName}
           style={{ transform: 'translateZ(0)', willChange: 'transform' }}
         >
@@ -97,7 +97,7 @@ export function LightBeamButton({
           onClick={onClick}
           className={baseClassName}
           style={{ transform: 'translateZ(0)', willChange: 'transform' }}
-          {...(props as any)}
+          {...props}
         >
           {content}
         </button>

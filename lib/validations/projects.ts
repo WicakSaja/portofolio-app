@@ -11,6 +11,7 @@ export const projectFormSchema = z.object({
   demo: optionalUrl,
   category: z.string().trim().min(2, "Category is required"),
   featured: z.boolean(),
+  skillIds: z.array(z.string()),
 
   seoTitle: optionalString,
   seoDescription: optionalString,
@@ -31,6 +32,7 @@ export const projectUploadSchema = z.object({
   demo: optionalUrl,
   category: z.string().trim().min(2, "Category is required"),
   featured: z.boolean(),
+  skillIds: z.array(z.string()).default([]),
 
   seoTitle: optionalString,
   seoDescription: optionalString,

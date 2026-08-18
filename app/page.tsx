@@ -24,9 +24,21 @@ export default async function Home() {
     prisma.settings.findFirst(),
     prisma.skill.findMany({ orderBy: { category: "asc" } }),
     prisma.experience.findMany({ orderBy: { startDate: "desc" } }),
-    prisma.portfolio.findMany({ orderBy: { createdAt: "desc" } }),
+    prisma.portfolio.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        skills: {
+          include: { skill: { select: { id: true, name: true } } },
+        },
+      },
+    }),
     prisma.contact.findFirst(),
   ]);
+
+  const projectsWithSkills = projects.map((p) => ({
+    ...p,
+    skills: p.skills ? p.skills.map((ps) => ps.skill) : [],
+  }));
 
   const jsonLdSchemas = generateHomepageSchema(settings, contact);
 
@@ -49,7 +61,7 @@ export default async function Home() {
         <About settings={settings} />
         <Skills skills={skills} />
         <ExperienceSection experiences={experiences} />
-        <ProjectsSection projects={projects} />
+        <ProjectsSection projects={projectsWithSkills} />
         <Contact contact={contact} />
       </main>
 

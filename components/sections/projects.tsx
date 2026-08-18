@@ -17,6 +17,7 @@ interface ProjectsSectionProps {
     featured: boolean;
     github: string | null;
     demo: string | null;
+    skills?: { id: string; name: string }[];
   }[];
 }
 

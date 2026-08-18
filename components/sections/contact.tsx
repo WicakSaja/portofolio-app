@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, Phone, Globe, Code } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { toast } from 'sonner';
 import { AnimateOnScroll } from '@/components/ui/animate-on-scroll';
 import { formatWhatsAppUrl } from '@/lib/utils/whatsapp';

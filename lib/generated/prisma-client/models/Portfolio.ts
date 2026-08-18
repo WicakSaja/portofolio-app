@@ -298,6 +298,7 @@ export type PortfolioWhereInput = {
   seoFollow?: Prisma.BoolFilter<"Portfolio"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Portfolio"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Portfolio"> | Date | string
+  skills?: Prisma.PortfolioSkillListRelationFilter
 }
 
 export type PortfolioOrderByWithRelationInput = {
@@ -321,6 +322,7 @@ export type PortfolioOrderByWithRelationInput = {
   seoFollow?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  skills?: Prisma.PortfolioSkillOrderByRelationAggregateInput
 }
 
 export type PortfolioWhereUniqueInput = Prisma.AtLeast<{
@@ -347,6 +349,7 @@ export type PortfolioWhereUniqueInput = Prisma.AtLeast<{
   seoFollow?: Prisma.BoolFilter<"Portfolio"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Portfolio"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Portfolio"> | Date | string
+  skills?: Prisma.PortfolioSkillListRelationFilter
 }, "id">
 
 export type PortfolioOrderByWithAggregationInput = {
@@ -422,6 +425,7 @@ export type PortfolioCreateInput = {
   seoFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  skills?: Prisma.PortfolioSkillCreateNestedManyWithoutPortfolioInput
 }
 
 export type PortfolioUncheckedCreateInput = {
@@ -445,6 +449,7 @@ export type PortfolioUncheckedCreateInput = {
   seoFollow?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  skills?: Prisma.PortfolioSkillUncheckedCreateNestedManyWithoutPortfolioInput
 }
 
 export type PortfolioUpdateInput = {
@@ -468,6 +473,7 @@ export type PortfolioUpdateInput = {
   seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.PortfolioSkillUpdateManyWithoutPortfolioNestedInput
 }
 
 export type PortfolioUncheckedUpdateInput = {
@@ -491,6 +497,7 @@ export type PortfolioUncheckedUpdateInput = {
   seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.PortfolioSkillUncheckedUpdateManyWithoutPortfolioNestedInput
 }
 
 export type PortfolioCreateManyInput = {
@@ -637,6 +644,11 @@ export type PortfolioMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type PortfolioScalarRelationFilter = {
+  is?: Prisma.PortfolioWhereInput
+  isNot?: Prisma.PortfolioWhereInput
+}
+
 export type PortfolioCreateimagesInput = {
   set: string[]
 }
@@ -662,6 +674,157 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type PortfolioCreateNestedOneWithoutSkillsInput = {
+  create?: Prisma.XOR<Prisma.PortfolioCreateWithoutSkillsInput, Prisma.PortfolioUncheckedCreateWithoutSkillsInput>
+  connectOrCreate?: Prisma.PortfolioCreateOrConnectWithoutSkillsInput
+  connect?: Prisma.PortfolioWhereUniqueInput
+}
+
+export type PortfolioUpdateOneRequiredWithoutSkillsNestedInput = {
+  create?: Prisma.XOR<Prisma.PortfolioCreateWithoutSkillsInput, Prisma.PortfolioUncheckedCreateWithoutSkillsInput>
+  connectOrCreate?: Prisma.PortfolioCreateOrConnectWithoutSkillsInput
+  upsert?: Prisma.PortfolioUpsertWithoutSkillsInput
+  connect?: Prisma.PortfolioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PortfolioUpdateToOneWithWhereWithoutSkillsInput, Prisma.PortfolioUpdateWithoutSkillsInput>, Prisma.PortfolioUncheckedUpdateWithoutSkillsInput>
+}
+
+export type PortfolioCreateWithoutSkillsInput = {
+  id?: string
+  title: string
+  description: string
+  thumbnail?: string | null
+  images?: Prisma.PortfolioCreateimagesInput | string[]
+  github?: string | null
+  demo?: string | null
+  category: string
+  featured?: boolean
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoKeywords?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  seoCanonicalUrl?: string | null
+  seoIndex?: boolean
+  seoFollow?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PortfolioUncheckedCreateWithoutSkillsInput = {
+  id?: string
+  title: string
+  description: string
+  thumbnail?: string | null
+  images?: Prisma.PortfolioCreateimagesInput | string[]
+  github?: string | null
+  demo?: string | null
+  category: string
+  featured?: boolean
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoKeywords?: string | null
+  seoOgTitle?: string | null
+  seoOgDescription?: string | null
+  seoOgImage?: string | null
+  seoCanonicalUrl?: string | null
+  seoIndex?: boolean
+  seoFollow?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PortfolioCreateOrConnectWithoutSkillsInput = {
+  where: Prisma.PortfolioWhereUniqueInput
+  create: Prisma.XOR<Prisma.PortfolioCreateWithoutSkillsInput, Prisma.PortfolioUncheckedCreateWithoutSkillsInput>
+}
+
+export type PortfolioUpsertWithoutSkillsInput = {
+  update: Prisma.XOR<Prisma.PortfolioUpdateWithoutSkillsInput, Prisma.PortfolioUncheckedUpdateWithoutSkillsInput>
+  create: Prisma.XOR<Prisma.PortfolioCreateWithoutSkillsInput, Prisma.PortfolioUncheckedCreateWithoutSkillsInput>
+  where?: Prisma.PortfolioWhereInput
+}
+
+export type PortfolioUpdateToOneWithWhereWithoutSkillsInput = {
+  where?: Prisma.PortfolioWhereInput
+  data: Prisma.XOR<Prisma.PortfolioUpdateWithoutSkillsInput, Prisma.PortfolioUncheckedUpdateWithoutSkillsInput>
+}
+
+export type PortfolioUpdateWithoutSkillsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.PortfolioUpdateimagesInput | string[]
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PortfolioUncheckedUpdateWithoutSkillsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.PortfolioUpdateimagesInput | string[]
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  demo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoOgImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoCanonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoIndex?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  seoFollow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type PortfolioCountOutputType
+ */
+
+export type PortfolioCountOutputType = {
+  skills: number
+}
+
+export type PortfolioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  skills?: boolean | PortfolioCountOutputTypeCountSkillsArgs
+}
+
+/**
+ * PortfolioCountOutputType without action
+ */
+export type PortfolioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PortfolioCountOutputType
+   */
+  select?: Prisma.PortfolioCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PortfolioCountOutputType without action
+ */
+export type PortfolioCountOutputTypeCountSkillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PortfolioSkillWhereInput
+}
 
 
 export type PortfolioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -685,6 +848,8 @@ export type PortfolioSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   seoFollow?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  skills?: boolean | Prisma.Portfolio$skillsArgs<ExtArgs>
+  _count?: boolean | Prisma.PortfolioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["portfolio"]>
 
 export type PortfolioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -757,10 +922,18 @@ export type PortfolioSelectScalar = {
 }
 
 export type PortfolioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "thumbnail" | "images" | "github" | "demo" | "category" | "featured" | "seoTitle" | "seoDescription" | "seoKeywords" | "seoOgTitle" | "seoOgDescription" | "seoOgImage" | "seoCanonicalUrl" | "seoIndex" | "seoFollow" | "createdAt" | "updatedAt", ExtArgs["result"]["portfolio"]>
+export type PortfolioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  skills?: boolean | Prisma.Portfolio$skillsArgs<ExtArgs>
+  _count?: boolean | Prisma.PortfolioCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type PortfolioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type PortfolioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $PortfolioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Portfolio"
-  objects: {}
+  objects: {
+    skills: Prisma.$PortfolioSkillPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
@@ -1176,6 +1349,7 @@ readonly fields: PortfolioFieldRefs;
  */
 export interface Prisma__PortfolioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  skills<T extends Prisma.Portfolio$skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Portfolio$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PortfolioSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1242,6 +1416,10 @@ export type PortfolioFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
+  /**
    * Filter, which Portfolio to fetch.
    */
   where: Prisma.PortfolioWhereUniqueInput
@@ -1260,6 +1438,10 @@ export type PortfolioFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
+  /**
    * Filter, which Portfolio to fetch.
    */
   where: Prisma.PortfolioWhereUniqueInput
@@ -1277,6 +1459,10 @@ export type PortfolioFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the Portfolio
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
   /**
    * Filter, which Portfolio to fetch.
    */
@@ -1326,6 +1512,10 @@ export type PortfolioFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
+  /**
    * Filter, which Portfolio to fetch.
    */
   where?: Prisma.PortfolioWhereInput
@@ -1373,6 +1563,10 @@ export type PortfolioFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Portfolio
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
   /**
    * Filter, which Portfolios to fetch.
    */
@@ -1422,6 +1616,10 @@ export type PortfolioCreateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
+  /**
    * The data needed to create a Portfolio.
    */
   data: Prisma.XOR<Prisma.PortfolioCreateInput, Prisma.PortfolioUncheckedCreateInput>
@@ -1469,6 +1667,10 @@ export type PortfolioUpdateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Portfolio
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
   /**
    * The data needed to update a Portfolio.
    */
@@ -1536,6 +1738,10 @@ export type PortfolioUpsertArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
+  /**
    * The filter to search for the Portfolio to update in case it exists.
    */
   where: Prisma.PortfolioWhereUniqueInput
@@ -1562,6 +1768,10 @@ export type PortfolioDeleteArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
+  /**
    * Filter which Portfolio to delete.
    */
   where: Prisma.PortfolioWhereUniqueInput
@@ -1582,6 +1792,30 @@ export type PortfolioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * Portfolio.skills
+ */
+export type Portfolio$skillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PortfolioSkill
+   */
+  select?: Prisma.PortfolioSkillSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PortfolioSkill
+   */
+  omit?: Prisma.PortfolioSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioSkillInclude<ExtArgs> | null
+  where?: Prisma.PortfolioSkillWhereInput
+  orderBy?: Prisma.PortfolioSkillOrderByWithRelationInput | Prisma.PortfolioSkillOrderByWithRelationInput[]
+  cursor?: Prisma.PortfolioSkillWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PortfolioSkillScalarFieldEnum | Prisma.PortfolioSkillScalarFieldEnum[]
+}
+
+/**
  * Portfolio without action
  */
 export type PortfolioDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1593,4 +1827,8 @@ export type PortfolioDefaultArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Portfolio
    */
   omit?: Prisma.PortfolioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PortfolioInclude<ExtArgs> | null
 }

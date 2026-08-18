@@ -45,3 +45,11 @@ Public Website
 Phase 9
 
 - [x] Deployment
+
+Phase 10
+
+Portfolio ↔ Skill Relationship
+
+- [x] Many-to-Many Relation (Prisma PortfolioSkill join table)
+- [x] Multi-select Skill picker in Admin Project Create/Edit
+- [x] Display Project Skills on Public Homepage & Project Details

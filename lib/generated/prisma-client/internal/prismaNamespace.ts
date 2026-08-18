@@ -401,7 +401,8 @@ export const ModelName = {
   Skill: 'Skill',
   Experience: 'Experience',
   Contact: 'Contact',
-  Settings: 'Settings'
+  Settings: 'Settings',
+  PortfolioSkill: 'PortfolioSkill'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -417,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "portfolio" | "skill" | "experience" | "contact" | "settings"
+    modelProps: "portfolio" | "skill" | "experience" | "contact" | "settings" | "portfolioSkill"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -791,6 +792,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PortfolioSkill: {
+      payload: Prisma.$PortfolioSkillPayload<ExtArgs>
+      fields: Prisma.PortfolioSkillFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PortfolioSkillFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PortfolioSkillFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>
+        }
+        findFirst: {
+          args: Prisma.PortfolioSkillFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PortfolioSkillFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>
+        }
+        findMany: {
+          args: Prisma.PortfolioSkillFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>[]
+        }
+        create: {
+          args: Prisma.PortfolioSkillCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>
+        }
+        createMany: {
+          args: Prisma.PortfolioSkillCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PortfolioSkillCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>[]
+        }
+        delete: {
+          args: Prisma.PortfolioSkillDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>
+        }
+        update: {
+          args: Prisma.PortfolioSkillUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>
+        }
+        deleteMany: {
+          args: Prisma.PortfolioSkillDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PortfolioSkillUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PortfolioSkillUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>[]
+        }
+        upsert: {
+          args: Prisma.PortfolioSkillUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PortfolioSkillPayload>
+        }
+        aggregate: {
+          args: Prisma.PortfolioSkillAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePortfolioSkill>
+        }
+        groupBy: {
+          args: Prisma.PortfolioSkillGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PortfolioSkillGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PortfolioSkillCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PortfolioSkillCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -932,6 +1007,16 @@ export const SettingsScalarFieldEnum = {
 } as const
 
 export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
+
+
+export const PortfolioSkillScalarFieldEnum = {
+  id: 'id',
+  portfolioId: 'portfolioId',
+  skillId: 'skillId',
+  createdAt: 'createdAt'
+} as const
+
+export type PortfolioSkillScalarFieldEnum = (typeof PortfolioSkillScalarFieldEnum)[keyof typeof PortfolioSkillScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1182,6 +1267,7 @@ export type GlobalOmitConfig = {
   experience?: Prisma.ExperienceOmit
   contact?: Prisma.ContactOmit
   settings?: Prisma.SettingsOmit
+  portfolioSkill?: Prisma.PortfolioSkillOmit
 }
 
 /* Types for Logging */

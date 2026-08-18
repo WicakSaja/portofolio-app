@@ -33,18 +33,17 @@ function getLevelLabel(level: number): string {
   return 'Developing';
 }
 
-export function Skills({ skills }: SkillsProps) {
-  if (!skills || skills.length === 0) return null;
-
+export function Skills({ skills = [] }: SkillsProps) {
+  const safeSkills = skills ?? [];
   // Extract unique categories
-  const uniqueCategories = Array.from(new Set(skills.map((s) => s.category)));
+  const uniqueCategories = Array.from(new Set(safeSkills.map((s) => s.category)));
   const categories = ['All', ...uniqueCategories];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredSkills =
     selectedCategory === 'All'
-      ? skills
-      : skills.filter((s) => s.category === selectedCategory);
+      ? safeSkills
+      : safeSkills.filter((s) => s.category === selectedCategory);
 
   const gradientString = `conic-gradient(from var(--gradient-angle), transparent 0%, #8b5cf6 40%, #06b6d4 50%, transparent 60%, transparent 100%)`;
 
@@ -106,6 +105,8 @@ export function Skills({ skills }: SkillsProps) {
   const handleMouseUpOrLeave = () => {
     isDragging.current = false;
   };
+
+  if (safeSkills.length === 0) return null;
 
   return (
     <section id="skills" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-[var(--color-background)]">
