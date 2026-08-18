@@ -36,7 +36,7 @@ export function Footer({ contact, resume }: FooterProps) {
           
           <div className="flex flex-col items-center md:items-start space-y-4">
             <h2 className="font-heading font-bold text-2xl text-[var(--color-text-primary)]">
-              Portfolio
+              Wicaksaja
             </h2>
             <p className="text-[var(--color-text-secondary)] text-center md:text-left max-w-sm">
               Transforming complex data into actionable insights and building scalable web applications.
@@ -122,7 +122,7 @@ export function Footer({ contact, resume }: FooterProps) {
 
         <div className="mt-12 pt-8 border-t border-[var(--color-border)] flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[var(--color-text-secondary)] text-sm">
-            &copy; {currentYear} WicakSaja. All rights reserved.
+            &copy; {currentYear} Wicaksaja. All rights reserved.
           </p>
         </div>
       </div>

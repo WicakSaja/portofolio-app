@@ -46,6 +46,17 @@ export default async function Home() {
     skills: p.skills ? p.skills.map((ps) => ps.skill) : [],
   }));
 
+  const earliestExpYear = experiences.length > 0
+    ? new Date(Math.min(...experiences.map((e) => new Date(e.startDate).getTime()))).getFullYear()
+    : new Date().getFullYear() - 2;
+  const yearsExperience = Math.max(1, new Date().getFullYear() - earliestExpYear + 1);
+
+  const heroStats = {
+    projectsCount: projects.length,
+    skillsCount: skills.length,
+    yearsExperience,
+  };
+
   const jsonLdSchemas = generateHomepageSchema(settings, contact);
 
   return (
@@ -62,7 +73,7 @@ export default async function Home() {
       <Navbar />
 
       <main>
-        <Hero settings={settings} />
+        <Hero settings={settings} stats={heroStats} />
         <Marquee skills={formattedSkills} />
         <About settings={settings} />
         <Skills skills={formattedSkills} />

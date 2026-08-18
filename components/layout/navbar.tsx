@@ -55,9 +55,9 @@ export function Navbar() {
             <Link
               href="#"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="font-heading font-bold text-xl text-[var(--color-text-primary)]"
+              className="font-heading font-bold text-xl text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors"
             >
-              Portfolio
+              Wicaksaja
             </Link>
           </div>
 
